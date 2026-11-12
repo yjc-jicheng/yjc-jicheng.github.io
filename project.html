@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ICU 延长住院预测 | Jicheng Yang</title>
+  <meta name="description" content="基于 MIMIC-IV Demo 的 ICU 延长住院早期预测：完整的数据读取、预处理、统计分析、建模、评估与可视化流程。">
+  <meta property="og:title" content="Early Prediction of Prolonged ICU Stay | Jicheng Yang">
+  <meta property="og:description" content="A reproducible machine-learning pipeline using the MIMIC-IV Clinical Database Demo.">
+  <meta property="og:type" content="article">
+  <link rel="stylesheet" href="assets/style.css">
+  <script defer src="assets/app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main" data-zh="跳到主要内容" data-en="Skip to content">跳到主要内容</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <a class="brand" href="index.html">杨济丞 <span>Jicheng Yang</span></a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="index.html#about" data-zh="关于" data-en="About">关于</a>
+        <a href="index.html#research" data-zh="研究" data-en="Research">研究</a>
+        <a href="index.html#publications" data-zh="论文" data-en="Publications">论文</a>
+        <a href="project.html" aria-current="page" data-zh="项目" data-en="Project">项目</a>
+        <a href="index.html#contact" data-zh="联系" data-en="Contact">联系</a>
+      </nav>
+      <div class="lang-switch" role="group" aria-label="Language / 语言">
+        <button type="button" data-lang="zh" class="is-active" aria-pressed="true">中文</button>
+        <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="project-hero wrap">
+      <a class="back-link" href="index.html">← <span data-zh="返回主页" data-en="Back to home">返回主页</span></a>
+      <p class="eyebrow" data-zh="项目 / 临床预测建模" data-en="Project / Clinical prediction modeling">项目 / 临床预测建模</p>
+      <h1 data-zh="早期预测延长 ICU 停留" data-en="Early prediction of prolonged ICU stay">早期预测延长 ICU 停留</h1>
+      <p class="lede" data-zh="利用入 ICU 后 24 小时内的常规临床数据，预测患者是否会发生延长 ICU 停留（LOS ≥ 72 小时）。项目覆盖数据读取、预处理、统计分析、预测建模、模型评估与可视化，并使用 Jupyter Notebook 与 LaTeX 完成可复现交付。" data-en="Using routinely available data from the first 24 hours after ICU admission to predict prolonged ICU stay (LOS ≥ 72 h). The project covers data loading, preprocessing, statistical analysis, predictive modeling, evaluation, and visualization, delivered reproducibly with Jupyter Notebook and LaTeX.">利用入 ICU 后 24 小时内的常规临床数据，预测患者是否会发生延长 ICU 停留（LOS ≥ 72 小时）。项目覆盖数据读取、预处理、统计分析、预测建模、模型评估与可视化，并使用 Jupyter Notebook 与 LaTeX 完成可复现交付。</p>
+      <div class="meta-row">
+        <span>MIMIC-IV Demo v2.2</span>
+        <span data-zh="128 个首次 ICU 住院" data-en="128 first ICU stays">128 个首次 ICU 住院</span>
+        <span data-zh="17 个预测变量" data-en="17 predictors">17 个预测变量</span>
+        <span data-zh="3 个候选模型" data-en="3 candidate models">3 个候选模型</span>
+        <span>Jupyter + LaTeX</span>
+      </div>
+
+      <div class="metric-strip" aria-label="Key results">
+        <div class="cell"><strong>128</strong><span data-zh="成人首次 ICU 住院" data-en="adult first ICU stays">成人首次 ICU 住院</span></div>
+        <div class="cell"><strong>48</strong><span data-zh="延长停留（37.5%）" data-en="prolonged stays (37.5%)">延长停留（37.5%）</span></div>
+        <div class="cell"><strong>0.778</strong><span data-zh="随机森林交叉验证 AUROC" data-en="random forest CV AUROC">随机森林交叉验证 AUROC</span></div>
+        <div class="cell"><strong>0.739</strong><span data-zh="测试集 AUROC（95% CI 0.559–0.883）" data-en="test AUROC (95% CI 0.559–0.883)">测试集 AUROC（95% CI 0.559–0.883）</span></div>
+      </div>
+    </section>
+
+    <section class="project-section wrap">
+      <h2 data-zh="研究问题" data-en="The question">研究问题</h2>
+      <p data-zh="ICU 床位与人力有限。若能在入科早期识别可能长时间占用 ICU 资源的患者，临床团队可以更早调整监护强度、安排床位与制定出院计划。延长 ICU 停留受疾病严重度、治疗反应、并发症和出院流程共同影响，因此需要一个多变量模型，而不是单一指标。" data-en="ICU beds and staffing are limited. If patients likely to require a long ICU stay can be identified early, teams can adjust monitoring intensity, plan bed allocation, and prepare discharge earlier. Prolonged ICU stay is driven by illness severity, treatment response, complications, and discharge logistics—so a multivariable model is needed rather than a single marker.">ICU 床位与人力有限。若能在入科早期识别可能长时间占用 ICU 资源的患者，临床团队可以更早调整监护强度、安排床位与制定出院计划。延长 ICU 停留受疾病严重度、治疗反应、并发症和出院流程共同影响，因此需要一个多变量模型，而不是单一指标。</p>
+      <p data-zh="本项目的结局定义为 ICU 住院时长 ≥ 72 小时；院内死亡作为次要描述结局。分析单位是每个住院的首次 ICU stay，以避免同一住院多次转入导致的非独立观察。" data-en="The primary outcome is ICU length of stay ≥ 72 h; in-hospital death is a secondary descriptive outcome. The unit of analysis is the first ICU stay of each hospital admission to avoid non-independent observations from repeated ICU transfers.">本项目的结局定义为 ICU 住院时长 ≥ 72 小时；院内死亡作为次要描述结局。分析单位是每个住院的首次 ICU stay，以避免同一住院多次转入导致的非独立观察。</p>
+      <div class="callout">
+        <strong data-zh="重要说明：" data-en="Important: ">重要说明：</strong>
+        <span data-zh="MIMIC-IV Demo 仅包含 100 名患者，样本量小、事件数有限。本项目用于展示可复现的临床预测建模流程，结果不应直接作为临床结论。" data-en="The MIMIC-IV Demo contains only 100 patients, with a small sample and limited events. This project demonstrates a reproducible clinical prediction workflow; the results should not be interpreted as clinical conclusions.">MIMIC-IV Demo 仅包含 100 名患者，样本量小、事件数有限。本项目用于展示可复现的临床预测建模流程，结果不应直接作为临床结论。</span>
+      </div>
+    </section>
+
+    <section class="project-section wrap">
+      <h2 data-zh="数据与队列" data-en="Data and cohort">数据与队列</h2>
+      <p data-zh="数据来自 PhysioNet 公开的 MIMIC-IV Clinical Database Demo v2.2（DOI: 10.13026/dp1f-ex47）。数据库包含 275 次住院、140 个 ICU stay，对应 128 次不同住院。保留每次住院的首次 ICU stay 后，共 128 例成人患者进入分析。" data-en="Data come from the openly available MIMIC-IV Clinical Database Demo v2.2 on PhysioNet (DOI: 10.13026/dp1f-ex47). The database contains 275 hospital admissions and 140 ICU stays across 128 unique admissions. After keeping the first ICU stay per admission, 128 adult patients entered the analysis.">数据来自 PhysioNet 公开的 MIMIC-IV Clinical Database Demo v2.2（DOI: 10.13026/dp1f-ex47）。数据库包含 275 次住院、140 个 ICU stay，对应 128 次不同住院。保留每次住院的首次 ICU stay 后，共 128 例成人患者进入分析。</p>
+
+      <figure class="figure-card">
+        <img src="assets/figures/fig01_cohort_flow.png" alt="Cohort construction flow from 275 admissions to 128 first ICU stays" width="2430" height="1650">
+        <figcaption data-zh="图 1 · 队列构建流程。最终 128 例中 48 例（37.5%）发生延长 ICU 停留，15 例（11.7%）院内死亡。" data-en="Figure 1 · Cohort construction. Of the 128 included stays, 48 (37.5%) were prolonged and 15 (11.7%) died in hospital.">图 1 · 队列构建流程。最终 128 例中 48 例（37.5%）发生延长 ICU 停留，15 例（11.7%）院内死亡。</figcaption>
+      </figure>
+
+      <h3 data-zh="预测变量" data-en="Predictors">预测变量</h3>
+      <p data-zh="所有变量均来自入 ICU 后 24 小时内的常规记录：年龄、性别、是否急诊入院；心率最大值、收缩压最小值、平均动脉压最小值、呼吸频率最大值、体温最大值、GCS 最小值；肌酐、尿素氮、乳酸、白细胞、血钠的最大值；24 小时内是否机械通气或使用血管活性药；以及衍生变量休克指数（心率/收缩压）。" data-en="All variables come from routine records within the first 24 h after ICU admission: age, sex, and emergency admission; maximum heart rate, minimum systolic blood pressure, minimum mean arterial pressure, maximum respiratory rate, maximum temperature, and minimum GCS; maximum creatinine, BUN, lactate, WBC, and sodium; mechanical ventilation or vasopressor use within 24 h; and the derived shock index (heart rate / systolic blood pressure).">所有变量均来自入 ICU 后 24 小时内的常规记录：年龄、性别、是否急诊入院；心率最大值、收缩压最小值、平均动脉压最小值、呼吸频率最大值、体温最大值、GCS 最小值；肌酐、尿素氮、乳酸、白细胞、血钠的最大值；24 小时内是否机械通气或使用血管活性药；以及衍生变量休克指数（心率/收缩压）。</p>
+    </section>
+
+    <section class="project-section wrap">
+      <h2 data-zh="分析流程" data-en="Pipeline">分析流程</h2>
+      <p data-zh="项目按照六个环节组织，全部在 Jupyter Notebook 中完成；计算在远程服务器上执行，图表与表格自动导出供报告和网页使用。" data-en="The project is organized into six stages, all implemented in a Jupyter Notebook; computation was executed on a remote server, with figures and tables exported automatically for the report and website.">项目按照六个环节组织，全部在 Jupyter Notebook 中完成；计算在远程服务器上执行，图表与表格自动导出供报告和网页使用。</p>
+      <ol class="steps">
+        <li><strong data-zh="数据读取" data-en="Data loading">数据读取</strong><span data-zh="读取 patients、admissions、icustays、chartevents、labevents 等表。" data-en="Load patients, admissions, icustays, chartevents, labevents, and related tables.">读取 patients、admissions、icustays、chartevents、labevents 等表。</span></li>
+        <li><strong data-zh="数据预处理" data-en="Preprocessing">数据预处理</strong><span data-zh="构建队列、提取 24 小时特征、处理缺失与异常值。" data-en="Build the cohort, extract 24-hour features, handle missingness and implausible values.">构建队列、提取 24 小时特征、处理缺失与异常值。</span></li>
+        <li><strong data-zh="统计分析" data-en="Statistics">统计分析</strong><span data-zh="Table 1、Mann–Whitney / 卡方检验、SMD、单因素 OR、相关性。" data-en="Table 1, Mann–Whitney / chi-square tests, SMD, univariate ORs, correlations.">Table 1、Mann–Whitney / 卡方检验、SMD、单因素 OR、相关性。</span></li>
+        <li><strong data-zh="预测建模" data-en="Modeling">预测建模</strong><span data-zh="70/30 分层划分，5 折交叉验证，logistic / RF / XGBoost。" data-en="Stratified 70/30 split, five-fold CV, logistic / RF / XGBoost.">70/30 分层划分，5 折交叉验证，logistic / RF / XGBoost。</span></li>
+        <li><strong data-zh="评估与可视化" data-en="Evaluation">评估与可视化</strong><span data-zh="AUROC、PR-AUC、Brier、校准、DCA、混淆矩阵、SHAP。" data-en="AUROC, PR-AUC, Brier, calibration, DCA, confusion matrix, SHAP.">AUROC、PR-AUC、Brier、校准、DCA、混淆矩阵、SHAP。</span></li>
+      </ol>
+      <p data-zh="建模细节：中位数插补与标准化均在训练集内拟合，避免信息泄漏；以交叉验证 AUROC 选择模型，而不是测试集表现；测试集仅用于最终评估。所有模型使用固定随机种子 42。" data-en="Modeling details: median imputation and scaling were fitted within the training set to prevent leakage; the model was selected by cross-validated AUROC, not test performance; the test set was used only for final evaluation. All models used a fixed random seed of 42.">建模细节：中位数插补与标准化均在训练集内拟合，避免信息泄漏；以交叉验证 AUROC 选择模型，而不是测试集表现；测试集仅用于最终评估。所有模型使用固定随机种子 42。</p>
+    </section>
+
+    <section class="project-section wrap">
+      <h2 data-zh="结果" data-en="Results">结果</h2>
+      <p data-zh="随机森林在交叉验证中 AUROC 最高（0.778），被预先选定为主模型；其在独立测试集上的 AUROC 为 0.739（95% CI 0.559–0.883），PR-AUC 为 0.698，Brier score 为 0.204。在 Youden 阈值 0.315 下，敏感度为 73.3%、特异度为 70.8%。Logistic 回归的测试 AUROC 为 0.750，Brier score 为 0.183，校准更好。" data-en="Random forest achieved the highest cross-validated AUROC (0.778) and was selected a priori as the primary model; on the held-out test set, AUROC was 0.739 (95% CI 0.559–0.883), PR-AUC 0.698, and Brier score 0.204. At the Youden threshold of 0.315, sensitivity was 73.3% and specificity 70.8%. Logistic regression achieved a test AUROC of 0.750 and a Brier score of 0.183, with better calibration.">随机森林在交叉验证中 AUROC 最高（0.778），被预先选定为主模型；其在独立测试集上的 AUROC 为 0.739（95% CI 0.559–0.883），PR-AUC 为 0.698，Brier score 为 0.204。在 Youden 阈值 0.315 下，敏感度为 73.3%、特异度为 70.8%。Logistic 回归的测试 AUROC 为 0.750，Brier score 为 0.183，校准更好。</p>
+
+      <div class="figure-grid">
+        <figure class="figure-card wide">
+          <img src="assets/figures/fig06_roc_pr.png" alt="ROC and precision-recall curves for logistic regression, random forest, and XGBoost" width="3272" height="1349">
+          <figcaption data-zh="图 2 · 测试集 ROC 与 PR 曲线。三条 ROC 曲线接近，随机森林在低假阳性率区域略优。" data-en="Figure 2 · Test-set ROC and PR curves. The three ROC curves are close; random forest is slightly better at low false-positive rates.">图 2 · 测试集 ROC 与 PR 曲线。三条 ROC 曲线接近，随机森林在低假阳性率区域略优。</figcaption>
+        </figure>
+        <figure class="figure-card">
+          <img src="assets/figures/fig07_calibration.png" alt="Calibration curves for the three models" width="1712" height="1529">
+          <figcaption data-zh="图 3 · 校准曲线。Logistic 回归最接近对角线，Brier score 最低。" data-en="Figure 3 · Calibration curves. Logistic regression is closest to the diagonal and has the lowest Brier score.">图 3 · 校准曲线。Logistic 回归最接近对角线，Brier score 最低。</figcaption>
+        </figure>
+        <figure class="figure-card">
+          <img src="assets/figures/fig08_dca.png" alt="Decision curve analysis for the three models" width="2132" height="1469">
+          <figcaption data-zh="图 4 · 决策曲线。在阈值约 0.10–0.50 范围内，模型净获益高于“全部干预”和“不干预”。" data-en="Figure 4 · Decision curves. Across thresholds of about 0.10–0.50, the models provide higher net benefit than treat-all or treat-none.">图 4 · 决策曲线。在阈值约 0.10–0.50 范围内，模型净获益高于“全部干预”和“不干预”。</figcaption>
+        </figure>
+        <figure class="figure-card wide">
+          <img src="assets/figures/fig11_shap_beeswarm.png" alt="SHAP summary plot for the random forest model" width="2286" height="2098">
+          <figcaption data-zh="图 5 · SHAP 蜂群图。GCS 越低、体温越高、乳酸越高、实施机械通气、心率越快，预测风险越高。" data-en="Figure 5 · SHAP summary. Lower GCS, higher temperature, higher lactate, mechanical ventilation, and faster heart rate increase predicted risk.">图 5 · SHAP 蜂群图。GCS 越低、体温越高、乳酸越高、实施机械通气、心率越快，预测风险越高。</figcaption>
+        </figure>
+        <figure class="figure-card">
+          <img src="assets/figures/fig09_confusion_matrix.png" alt="Confusion matrix of the random forest at the Youden threshold" width="1410" height="1230">
+          <figcaption data-zh="图 6 · 随机森林在 Youden 阈值下的混淆矩阵。敏感度 73.3%，特异度 70.8%。" data-en="Figure 6 · Confusion matrix of random forest at the Youden threshold. Sensitivity 73.3%, specificity 70.8%.">图 6 · 随机森林在 Youden 阈值下的混淆矩阵。敏感度 73.3%，特异度 70.8%。</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="project-section wrap">
+      <h2 data-zh="解读与局限" data-en="Interpretation and limitations">解读与局限</h2>
+      <p data-zh="模型的主要信号来自三个方面：神经功能（GCS）、灌注与代谢状态（乳酸、休克指数、平均动脉压）以及呼吸支持（机械通气、呼吸频率、体温）。这些变量在入 ICU 早期即可获得，不需要额外特殊检查，因此具有一定的可推广性。" data-en="The model's main signals come from three domains: neurological status (GCS), perfusion and metabolism (lactate, shock index, mean arterial pressure), and respiratory support (mechanical ventilation, respiratory rate, temperature). These variables are available early after ICU admission without additional specialized tests, supporting potential generalizability.">模型的主要信号来自三个方面：神经功能（GCS）、灌注与代谢状态（乳酸、休克指数、平均动脉压）以及呼吸支持（机械通气、呼吸频率、体温）。这些变量在入 ICU 早期即可获得，不需要额外特殊检查，因此具有一定的可推广性。</p>
+      <p data-zh="但必须强调局限：Demo 数据仅 128 个首次 ICU 住院、48 个事件，测试集 39 例，AUROC 置信区间较宽；数据来自单中心、回顾性队列，缺乏外部验证；ICU LOS 还受出院流程与床位资源影响；乳酸缺失率约 39%，中位数插补可能引入偏倚。因此，本项目应被视为方法学演示，而非临床结论。" data-en="Important limitations: the demo contains only 128 first ICU stays and 48 events, with 39 patients in the test set, yielding a wide AUROC confidence interval; the data are single-center and retrospective, without external validation; ICU LOS is also affected by discharge logistics and bed availability; and lactate was missing in about 39% of patients, so median imputation may introduce bias. This project should therefore be regarded as a methodological demonstration, not a clinical conclusion.">但必须强调局限：Demo 数据仅 128 个首次 ICU 住院、48 个事件，测试集 39 例，AUROC 置信区间较宽；数据来自单中心、回顾性队列，缺乏外部验证；ICU LOS 还受出院流程与床位资源影响；乳酸缺失率约 39%，中位数插补可能引入偏倚。因此，本项目应被视为方法学演示，而非临床结论。</p>
+    </section>
+
+    <section class="project-section wrap">
+      <h2 data-zh="复现与下载" data-en="Reproducibility and downloads">复现与下载</h2>
+      <p data-zh="报告提供完整的方法、结果、图表与参考文献；Notebook 包含全部可执行代码与输出；数据可从 PhysioNet 公开获取。" data-en="The report provides full methods, results, figures, and references; the notebook contains all executable code and outputs; the data are openly available from PhysioNet.">报告提供完整的方法、结果、图表与参考文献；Notebook 包含全部可执行代码与输出；数据可从 PhysioNet 公开获取。</p>
+      <div class="download-grid">
+        <a class="download" href="assets/files/icu-los-report.pdf" target="_blank" rel="noopener">
+          <strong data-zh="LaTeX 报告 PDF" data-en="LaTeX report (PDF)">LaTeX 报告 PDF</strong>
+          <span data-zh="中英双语 · 方法、结果与图表" data-en="Bilingual · methods, results, figures">中英双语 · 方法、结果与图表</span>
+        </a>
+        <a class="download" href="assets/files/icu-los-analysis.ipynb" download>
+          <strong data-zh="Jupyter Notebook" data-en="Jupyter Notebook">Jupyter Notebook</strong>
+          <span data-zh="含完整代码、输出与图表" data-en="Full code, outputs, and figures">含完整代码、输出与图表</span>
+        </a>
+        <a class="download" href="https://doi.org/10.13026/dp1f-ex47" target="_blank" rel="noopener">
+          <strong data-zh="MIMIC-IV Demo 数据" data-en="MIMIC-IV Demo dataset">MIMIC-IV Demo 数据</strong>
+          <span data-zh="PhysioNet · 公开获取" data-en="PhysioNet · open access">PhysioNet · 公开获取</span>
+        </a>
+      </div>
+
+      <h3 data-zh="参考" data-en="References">参考</h3>
+      <ul class="refs">
+        <li>Johnson AEW, Bulgarelli L, Shen L, et al. MIMIC-IV, a freely accessible electronic health record dataset. <em>Scientific Data</em>. 2023;10:1.</li>
+        <li>Johnson A, Bulgarelli L, Pollard T, Horng S, Celi LA, Mark R. MIMIC-IV Clinical Database Demo (version 2.2). <em>PhysioNet</em>. 2023. DOI: 10.13026/dp1f-ex47.</li>
+        <li>Collins GS, Moons KGM, Dhiman P, et al. TRIPOD+AI statement. <em>BMJ</em>. 2024;385:e078378.</li>
+        <li>Lundberg SM, Lee SI. A unified approach to interpreting model predictions. <em>NeurIPS</em>. 2017.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <span>© 2026 杨济丞 · Jicheng Yang</span>
+      <span data-zh="项目代码在远程服务器上运行；数据来自公开 MIMIC-IV Demo。" data-en="Project code was executed on a remote server; data from the open MIMIC-IV Demo.">项目代码在远程服务器上运行；数据来自公开 MIMIC-IV Demo。</span>
+    </div>
+  </footer>
+</body>
+</html>
