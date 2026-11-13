@@ -1,0 +1,23 @@
+---
+import type { Lang } from '@/lib/site';
+import { T } from '@/i18n/ui';
+const { lang } = Astro.props as { lang: Lang };
+const t = T(lang);
+---
+<button class="icon-btn" id="theme-toggle" type="button" aria-label={t.theme} title={t.theme}>
+  <span aria-hidden="true" data-theme-icon>◐</span>
+</button>
+<script>
+  const btn = document.getElementById('theme-toggle');
+  const icon = btn?.querySelector('[data-theme-icon]');
+  const sysDark = () => window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const current = () => document.documentElement.dataset.theme ?? (sysDark() ? 'dark' : 'light');
+  const paint = () => { if (icon) icon.textContent = current() === 'dark' ? '◑' : '◐'; };
+  paint();
+  btn?.addEventListener('click', () => {
+    const next = current() === 'dark' ? 'light' : 'dark';
+    document.documentElement.dataset.theme = next;
+    try { localStorage.setItem('theme', next); } catch {}
+    paint();
+  });
+</script>

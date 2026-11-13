@@ -1,0 +1,141 @@
+# ============================================================
+#  站点信息
+# ============================================================
+
+name:
+  en: "Jicheng Yang"
+  zh: "杨济丞"
+
+# 一行身份，出现在姓名下方
+tagline:
+  en: "MSc candidate · Proteomics & Spatial Omics"
+  zh: "硕士研究生 · 蛋白质组学与空间组学"
+
+affiliation:
+  en: "Medical Research Center, China Academy of Chinese Medical Sciences"
+  zh: "中国中医科学院 医学实验中心"
+
+# 首页前两三句话：在做什么、用什么方法、关心什么问题。
+bio:
+  en: >
+    I use mass spectrometry-based proteomics, spatial omics, and machine learning
+    to study how traditional Chinese medicines act in acute liver injury, acute
+    lung injury, ulcerative colitis, and heart failure. I am particularly interested
+    in turning high-throughput discovery into mechanistic hypotheses and blood
+    biomarkers that can be validated by targeted PRM assays.
+  zh: >
+    我使用基于质谱的蛋白质组学、空间组学与机器学习，研究中药在急性肝损伤、
+    急性肺损伤、溃疡性结肠炎与心力衰竭中的作用机制，并关注如何把高通量发现
+    转化为可验证的机制假设与血液标志物，最终通过 PRM 靶向质谱完成验证。
+
+email: "yjc1814360926 [at] 163.com"
+
+links:
+  # 留空的条目不会显示在页面上
+  orcid: ""
+  scholar: ""
+  github: "https://github.com/yjc-jicheng"
+  cv_pdf: "/cv.pdf"
+  twitter: ""
+  bluesky: ""
+
+# 研究主线：4 条
+research:
+  - id: uc-multi-organ
+    title:
+      en: "Multi-organ proteomics across the ulcerative colitis continuum"
+      zh: "溃疡性结肠炎“健康—疾病—复发”临界态的多器官蛋白质组学"
+    summary:
+      en: "Mapping systemic responses across healthy, diseased, and relapsed states."
+      zh: "刻画健康、疾病与复发状态下的系统性响应。"
+    detail:
+      en: >
+        As part of a major National Natural Science Foundation of China project,
+        we profile multiple organs across the healthy–disease–relapse continuum of
+        ulcerative colitis. The goal is to identify extraintestinal protein-level
+        changes that accompany disease transition. The current work is based on
+        animal models and clinical samples; causal roles of candidate proteins
+        remain to be tested.
+      zh: >
+        作为国家自然科学基金重大专项的一部分，我们围绕溃疡性结肠炎“健康—疾病—复发”
+        临界态开展多器官蛋白质组学分析，寻找伴随疾病转变的肠外蛋白变化。目前的结果
+        基于动物模型与临床样本，候选蛋白的因果作用仍需进一步验证。
+    figure: "generated/workflow"
+
+  - id: serum-biomarkers
+    title:
+      en: "Serum proteomics and machine learning for biomarker discovery"
+      zh: "血清蛋白质组学与机器学习驱动的标志物发现"
+    summary:
+      en: "Low-abundance enrichment, feature selection, and PRM validation."
+      zh: "低丰度富集、特征筛选与 PRM 验证。"
+    detail:
+      en: >
+        We enrich low-abundance serum proteins, acquire proteomic profiles, and use
+        machine learning to prioritize candidate biomarkers for HFpEF and
+        Helicobacter pylori infection. Candidates are then validated by PRM targeted
+        mass spectrometry. The main boundary is that candidate panels still need
+        independent, adequately powered cohorts before clinical use.
+      zh: >
+        我们富集血清低丰度蛋白、采集蛋白质组图谱，并用机器学习筛选 HFpEF 与幽门螺杆菌
+        感染的候选标志物，随后通过 PRM 靶向质谱验证。主要边界是候选标志物组合仍需在
+        独立、样本量充足的人群中验证，才能谈临床应用。
+    figure: "generated/spectrum"
+
+  - id: tcm-ferroptosis
+    title:
+      en: "Ferroptosis mechanisms of hepatoprotective traditional medicines"
+      zh: "中药肝保护的铁死亡机制"
+    summary:
+      en: "APAP, LPS/D-GalN, and CCL4 models dissected by multi-omics."
+      zh: "用多组学解析 APAP、LPS/D-GalN 与 CCL4 模型。"
+    detail:
+      en: >
+        We build acetaminophen-, LPS/D-GalN-, and CCL4-induced liver injury models
+        and combine proteomics, transcriptomics, and molecular biology to dissect
+        ferroptosis and PPARγ/GPX4 signaling. This work supports a mechanistic axis
+        for Yindan Pinggan capsules, but the evidence is preclinical and does not
+        establish clinical efficacy.
+      zh: >
+        我们构建对乙酰氨基酚、LPS/D-GalN 与 CCL4 诱导的肝损伤模型，结合蛋白质组、
+        转录组与分子生物学解析铁死亡及 PPARγ/GPX4 通路。这些工作为菌胆平肝胶囊提供了
+        机制层面的证据，但属于临床前研究，不能据此推断临床疗效。
+    figure: "generated/volcano"
+
+  - id: spatial-omics
+    title:
+      en: "Spatial omics and mass spectrometry imaging"
+      zh: "空间组学与质谱成像"
+    summary:
+      en: "Resolving region-specific lipids and proteins in tissue."
+      zh: "解析组织微区中的脂质与蛋白分布。"
+    detail:
+      en: >
+        We use MALDI-MSI and spatial proteomics to resolve region-specific lipid and
+        protein distributions in tissue, including ventricular remodeling after
+        heart failure and TCM intervention. The approach is primarily exploratory:
+        spatial patterns generate hypotheses, while cell-type assignment and
+        causality require orthogonal validation.
+      zh: >
+        我们利用 MALDI-MSI 与空间蛋白质组学解析组织微区的脂质与蛋白分布，包括心衰
+        心室重构及中药干预。该方法以探索性发现为主：空间分布用于提出假设，细胞类型
+        归属与因果关系仍需正交实验验证。
+    figure: "generated/spatial"
+
+# 最近动态：最多 3 条
+news:
+  - date: 2026-11-01
+    text:
+      en: "Launched a new bilingual academic homepage and released the ICU length-of-stay prediction project."
+      zh: "上线新的中英双语学术主页，并发布 ICU 延长住院预测项目。"
+  - date: 2026-08-11
+    text:
+      en: "Co-first-author paper on Yindan Pinggan capsules and ferroptosis published in Science of Traditional Chinese Medicine."
+      zh: "菌胆平肝胶囊与铁死亡的共同第一作者论文发表于 Science of Traditional Chinese Medicine。"
+  - date: 2026-02-01
+    text:
+      en: "Paper on CCL4-induced liver fibrosis published in Pharmaceuticals."
+      zh: "CCL4 诱导肝纤维化论文发表于 Pharmaceuticals。"
+
+# 社交预览图（1200×630）
+og_image: "/img/generated/og.svg"

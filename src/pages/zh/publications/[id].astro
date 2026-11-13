@@ -1,0 +1,11 @@
+---
+import { getCollection } from 'astro:content';
+import PubDetail from '@/views/PubDetail.astro';
+
+export async function getStaticPaths() {
+  const pubs = await getCollection('publications');
+  return pubs.map((pub) => ({ params: { id: pub.id }, props: { pub } }));
+}
+const { pub } = Astro.props;
+---
+<PubDetail pub={pub} lang="zh" />

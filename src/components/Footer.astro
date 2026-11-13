@@ -1,0 +1,18 @@
+---
+import type { Lang } from '@/lib/site';
+import { site, filled } from '@/lib/site';
+const { lang } = Astro.props as { lang: Lang };
+const social: [string, string][] = Object.entries(site.links ?? {}).filter(([, v]) => filled(v)) as [string, string][];
+const built = new Date().toISOString().slice(0, 10);
+const labels: Record<string, string> = {
+  github: 'GitHub', cv_pdf: lang === 'zh' ? '简历 PDF' : 'CV PDF',
+  orcid: 'ORCID', scholar: 'Scholar', twitter: 'Twitter', bluesky: 'Bluesky',
+};
+---
+<footer class="site-foot">
+  <span>© {new Date().getFullYear()} · {site.email}</span>
+  <span>
+    {social.map(([k, v]) => (<><a href={v}>{labels[k] ?? k}</a>{' '}</>))}
+  </span>
+  <span><time datetime={built}>{built}</time></span>
+</footer>

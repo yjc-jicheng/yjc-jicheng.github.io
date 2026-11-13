@@ -1,0 +1,16 @@
+---
+// 全站只需一份：把所有 [data-open] 按钮接到对应的 <dialog>，
+// 关闭后把焦点还给触发元素（原生 dialog 已处理焦点陷阱）。
+---
+<script>
+  let last: HTMLElement | null = null;
+  document.querySelectorAll<HTMLElement>('[data-open]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const dlg = document.getElementById(btn.dataset.open!) as HTMLDialogElement | null;
+      if (!dlg?.showModal) return;
+      last = btn;
+      dlg.showModal();
+      dlg.addEventListener('close', () => last?.focus(), { once: true });
+    });
+  });
+</script>

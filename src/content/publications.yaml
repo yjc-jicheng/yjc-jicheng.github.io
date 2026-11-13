@@ -1,0 +1,211 @@
+# ============================================================
+#  出版物
+#  字段说明见 content-schema.md。authors 里本人姓名要和 me 字段一致，
+#  模板会自动把本人加粗。
+# ============================================================
+
+- id: yindan-apap-2026
+  title: "Yindan Pinggan Capsules alleviates acetaminophen-induced liver injury by modulating ferroptosis via the system Xc−/GSH/GPX4 axis and the LPCAT3–ACSL4 pathway"
+  authors: ["Yang, J.", "Zhang, Y.", "Yang, R.", "Zhang, F.", "Jiang, X.", "Zhuang, Y.", "Li, X.", "Yang, H."]
+  me: "Yang, J."
+  role: { en: "Co-first author", zh: "共同第一作者" }
+  year: 2026
+  venue: "Science of Traditional Chinese Medicine"
+  venue_short: "Sci. Tradit. Chin. Med."
+  status: published
+  volume: ""
+  pages: ""
+  doi: "10.1097/ST9.0000000000000136"
+  selected: true
+  topics: ["proteomics", "ferroptosis", "liver injury"]
+  figure: "generated/volcano"
+  links: { pdf: "", code: "", data: "" }
+  abstract:
+    en: >
+      We combined proteomic and transcriptomic profiling with functional assays to
+      show that Yindan Pinggan capsules alleviate acetaminophen-induced liver injury
+      by suppressing ferroptosis through the Xc−/GSH/GPX4 axis and the
+      LPCAT3–ACSL4 pathway. The study defines a candidate mechanistic axis in
+      preclinical models; clinical efficacy was not tested.
+    zh: >
+      结合蛋白质组、转录组与功能实验，发现菌胆平肝胶囊通过 Xc−/GSH/GPX4 轴与
+      LPCAT3–ACSL4 通路抑制铁死亡，从而减轻对乙酰氨基酚诱导的肝损伤。该研究在
+      临床前模型中提出了一条候选机制轴，未评价临床疗效。
+  tldr:
+    en: "Ferroptosis suppression via Xc−/GSH/GPX4 and LPCAT3–ACSL4 underlies the hepatoprotective effect."
+    zh: "通过 Xc−/GSH/GPX4 与 LPCAT3–ACSL4 抑制铁死亡是其肝保护机制。"
+
+- id: yindan-ccl4-2026
+  title: "Yin-Dan-Ping-Gan Capsule mitigates CCL4-induced liver fibrosis via regulating PPARγ/GPX4 signaling and suppressing ferroptosis"
+  authors: ["Jiang, X.", "Yang, J.", "Zhang, Y.", "Zhang, Y.", "Ouyang, Z.", "Zhao, C.", "Lin, L.", "Li, X.", "Huang, L."]
+  me: "Yang, J."
+  role: { en: "Second author", zh: "第二作者" }
+  year: 2026
+  venue: "Pharmaceuticals"
+  venue_short: "Pharmaceuticals"
+  status: published
+  volume: "19"
+  pages: "251"
+  doi: "10.3390/ph19020251"
+  selected: false
+  topics: ["proteomics", "network pharmacology", "liver fibrosis"]
+  figure: "generated/network"
+  links: { pdf: "", code: "", data: "" }
+  abstract:
+    en: >
+      Integrating proteomics, network pharmacology, and deep learning, we show that
+      Yin-Dan-Ping-Gan capsules mitigate CCL4-induced liver fibrosis by activating
+      PPARγ/GPX4 signaling and suppressing ferroptosis. The evidence is preclinical
+      and identifies a candidate antifibrotic axis rather than a clinical therapy.
+    zh: >
+      整合蛋白质组、网络药理学与深度学习，发现菌胆平肝胶囊通过激活 PPARγ/GPX4
+      信号、抑制铁死亡来减轻 CCL4 诱导的肝纤维化。证据来自临床前研究，提出的是
+      候选抗纤维化机制轴，而非临床治疗方案。
+  tldr:
+    en: "PPARγ–GPX4 activation and ferroptosis suppression drive the antifibrotic effect."
+    zh: "PPARγ–GPX4 激活与铁死亡抑制共同驱动抗纤维化作用。"
+
+- id: peony-skin-2026
+  title: "Protective effect of peony (Paeonia ostii) flower extract against tape stripping-induced skin barrier impairment in mice"
+  authors: ["Yang, R.", "Yang, J.", "He, G.", "Zhang, Y.", "Jiang, X.", "Wang, J.", "Yang, H.", "Shang, C."]
+  me: "Yang, J."
+  role: { en: "Co-first author", zh: "共同第一作者" }
+  year: 2026
+  venue: "Molecules"
+  venue_short: "Molecules"
+  status: published
+  volume: "31"
+  pages: "62"
+  doi: "10.3390/molecules31010062"
+  selected: false
+  topics: ["proteomics", "skin barrier"]
+  figure: "generated/spatial"
+  links: { pdf: "", code: "", data: "" }
+  abstract:
+    en: >
+      In a mouse tape-stripping model, peony flower extract restored skin barrier
+      function and was associated with upregulation of multiple barrier-related
+      proteins. The study links a proteomics-informed protein set to a measurable
+      skin phenotype in mice.
+    zh: >
+      在小鼠胶带剥离模型中，凤丹牡丹花提取物改善了皮肤屏障功能，并伴随多种屏障
+      相关蛋白上调。研究把蛋白质组学提示的蛋白集合与小鼠皮肤表型联系起来。
+  tldr:
+    en: "Peony flower extract repairs the skin barrier in a mouse model."
+    zh: "凤丹牡丹花提取物在小鼠模型中修复皮肤屏障。"
+
+- id: yindan-phenomics-2026
+  title: "Proteomics, transcriptomics, and machine learning simulations reveal the pivotal role of the PI3K/AKT pathway in LPS/D-GalN-induced acute liver injury and the therapeutic mechanism of Yin Dan Ping Gan capsules"
+  authors: ["Yang, J.", "et al."]
+  me: "Yang, J."
+  role: { en: "Co-first author", zh: "共同第一作者" }
+  year: 2026
+  venue: "Phenomics"
+  venue_short: "Phenomics"
+  status: in-press
+  volume: ""
+  pages: ""
+  doi: ""
+  selected: true
+  topics: ["proteomics", "transcriptomics", "machine learning"]
+  figure: "generated/volcano"
+  links: { pdf: "", code: "", data: "" }
+  abstract:
+    en: >
+      Proteomics, transcriptomics, and machine-learning simulations identify
+      PI3K/AKT signaling as a central axis in LPS/D-GalN-induced acute liver injury
+      and as a target of Yin Dan Ping Gan capsules. The work is accepted for
+      publication; the full author list and DOI will be added when available.
+    zh: >
+      蛋白质组、转录组与机器学习模拟共同提示 PI3K/AKT 信号是 LPS/D-GalN 诱导急性
+      肝损伤的核心轴，也是菌胆平肝胶囊的作用靶点。论文已接收；完整作者列表与 DOI
+      将在信息可用后补充。
+  tldr:
+    en: "PI3K/AKT is a central injury axis and a candidate therapeutic target."
+    zh: "PI3K/AKT 是损伤核心轴与候选治疗靶点。"
+
+- id: harpagide-ali-2025
+  title: "Harpagide confers protection against acute lung injury through multi-omics dissection of immune–microenvironmental crosstalk and convergent therapeutic mechanisms"
+  authors: ["Wang, H.", "Yang, J.", "Zhang, Y.", "Wang, J.", "Song, S.", "Gao, L.", "Liu, M.", "Chen, Z.", "Li, X."]
+  me: "Yang, J."
+  role: { en: "Co-first author", zh: "共同第一作者" }
+  year: 2025
+  venue: "Pharmaceuticals"
+  venue_short: "Pharmaceuticals"
+  status: published
+  volume: "18"
+  pages: "1494"
+  doi: "10.3390/ph18101494"
+  selected: true
+  topics: ["multi-omics", "acute lung injury"]
+  figure: "generated/network"
+  links: { pdf: "", code: "", data: "" }
+  abstract:
+    en: >
+      Multi-omics analysis of immune–microenvironmental crosstalk shows that
+      harpagide protects against acute lung injury through convergent HIF-1α, Nrf2,
+      and PI3K signaling. The study integrates single-cell transcriptomics with
+      blood and lung proteomics in preclinical models.
+    zh: >
+      通过多组学解析免疫—微环境互作，发现哈巴苷经 HIF-1α、Nrf2 与 PI3K 信号的
+      汇聚作用保护急性肺损伤。研究在临床前模型中整合了单细胞转录组与血液、肺组织
+      蛋白质组。
+  tldr:
+    en: "Harpagide protects the injured lung via convergent HIF-1α/Nrf2/PI3K signaling."
+    zh: "哈巴苷通过 HIF-1α/Nrf2/PI3K 信号汇聚保护损伤肺组织。"
+
+- id: xinshubao-hfref-2025
+  title: "Xin-shu-bao tablets ameliorates ventricular remodeling against HFrEF via PPARγ/MFGE8 pathway based on MALDI-MSI and lipidomics"
+  authors: ["Zhang, F.", "Li, Z.", "Zhang, Y.", "Yang, J.", "Xiao, H.", "Li, X.", "Yang, H."]
+  me: "Yang, J."
+  role: { en: "Fourth author", zh: "第四作者" }
+  year: 2025
+  venue: "Journal of Ethnopharmacology"
+  venue_short: "J. Ethnopharmacol."
+  status: published
+  volume: "347"
+  pages: "119741"
+  doi: "10.1016/j.jep.2025.119741"
+  selected: false
+  topics: ["MALDI-MSI", "lipidomics", "heart failure"]
+  figure: "generated/spatial"
+  links: { pdf: "", code: "", data: "" }
+  abstract:
+    en: >
+      MALDI-MSI lipidomics and molecular biology show that Xin-shu-bao tablets
+      ameliorate ventricular remodeling after HFrEF via PPARγ/MFGE8 signaling. The
+      study combines spatial lipid mapping with targeted mechanistic experiments.
+    zh: >
+      结合 MALDI-MSI 脂质组学与分子生物学，发现心速宝片通过 PPARγ/MFGE8 信号改善
+      HFrEF 后的心室重构。研究把空间脂质分布与针对性的机制实验结合起来。
+  tldr:
+    en: "A PPARγ/MFGE8 remodeling axis underlies the cardioprotective effect."
+    zh: "PPARγ/MFGE8 重构轴是其心脏保护作用的机制基础。"
+
+- id: urinary-proteomics-review-2026
+  title: "尿液蛋白质组学在心力衰竭疾病中的研究进展"
+  authors: ["Yang, J.", "et al."]
+  me: "Yang, J."
+  role: { en: "First author", zh: "第一作者" }
+  year: 2026
+  venue: "中国科学：生命科学 (Scientia Sinica Vitae)"
+  venue_short: "Sci. Sin. Vitae"
+  status: published
+  volume: ""
+  pages: ""
+  doi: ""
+  selected: false
+  topics: ["urinary proteomics", "heart failure"]
+  figure: "generated/workflow"
+  links: { pdf: "", code: "", data: "" }
+  abstract:
+    en: >
+      This Chinese-language review summarizes urinary proteomics in heart failure,
+      focusing on the sensitivity and specificity of candidate biomarkers and the
+      analytical challenges that limit translation.
+    zh: >
+      该中文综述总结尿液蛋白质组学在心力衰竭中的研究进展，重点关注候选标志物的
+      敏感性与特异性，以及限制其转化的分析学问题。
+  tldr:
+    en: "Urinary proteomics is promising but needs better sensitivity and specificity."
+    zh: "尿液蛋白质组学有潜力，但敏感性与特异性仍需提高。"

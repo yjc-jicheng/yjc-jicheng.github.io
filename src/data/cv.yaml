@@ -1,0 +1,53 @@
+# 在线 CV 内容。每个条目的 period 用 "2024–2026" 或 "2024–" 形式。
+education:
+  - period: "2023–"
+    what: { en: "MSc in Chinese Materia Medica", zh: "中药学 硕士" }
+    where: { en: "China Academy of Chinese Medical Sciences", zh: "中国中医科学院" }
+    note:
+      en: "Medical Research Center; advisor: Prof. Hongjun Yang"
+      zh: "医学实验中心；导师：杨洪军 研究员"
+  - period: "2019–2023"
+    what: { en: "BSc in Chinese Materia Medica", zh: "中药学 学士" }
+    where: { en: "Tianjin University of Traditional Chinese Medicine", zh: "天津中医药大学" }
+    note: { en: "GPA 3.7/5.0; CET-6", zh: "GPA 3.7/5.0；CET-6" }
+
+positions:
+  - period: "2023–"
+    what: { en: "Graduate Researcher", zh: "硕士研究生（科研）" }
+    where: { en: "Medical Research Center, CACMS", zh: "中国中医科学院 医学实验中心" }
+    note:
+      en: "NSFC major project on the ulcerative colitis continuum; serum proteomics and PRM validation"
+      zh: "参与溃疡性结肠炎临界态国家自然科学基金重大专项；负责血清蛋白质组学与 PRM 验证"
+
+awards: []
+
+talks: []
+
+skills:
+  - group: { en: "Proteomics", zh: "蛋白质组学" }
+    items:
+      - "Serum / tissue / microsample preparation"
+      - "Low-abundance protein enrichment"
+      - "DIA / DDA profiling"
+      - "PRM targeted validation"
+  - group: { en: "Mass spectrometry & imaging", zh: "质谱与成像" }
+    items:
+      - "Waters M Class—AB Sciex 7600"
+      - "Bruker MALDI-TOF 200"
+      - "MALDI-MSI"
+  - group: { en: "Data & computation", zh: "数据与计算" }
+    items:
+      - "R"
+      - "Python"
+      - "SPSS"
+      - "GraphPad Prism"
+      - "Machine learning"
+      - "Statistical analysis and visualization"
+  - group: { en: "Molecular & animal experiments", zh: "分子与动物实验" }
+    items:
+      - "Western blot"
+      - "Immunofluorescence"
+      - "Ulcerative colitis model"
+      - "Acute liver injury model"
+
+service: []

@@ -1,0 +1,88 @@
+---
+import type { Lang } from '@/lib/site';
+import { t as tr, href, filled } from '@/lib/site';
+import { T } from '@/i18n/ui';
+import { toBibtex } from '@/lib/bibtex';
+import Base from '@/layouts/Base.astro';
+
+const { pub, lang } = Astro.props as { pub: any; lang: Lang };
+const t = T(lang);
+const d = pub.data;
+const bib = toBibtex({ id: pub.id, ...d });
+const links: [string, string][] = [
+  ['PDF', d.links?.pdf],
+  ['Code', d.links?.code],
+  ['Data', d.links?.data],
+  ['DOI', filled(d.doi) && !/^TODO/.test(d.doi) ? `https://doi.org/${d.doi}` : ''],
+].filter(([, v]) => filled(v as string)) as [string, string][];
+
+const jsonld = {
+  '@context': 'https://schema.org',
+  '@type': 'ScholarlyArticle',
+  headline: d.title,
+  author: d.authors.map((a: string) => ({ '@type': 'Person', name: a })),
+  datePublished: String(d.year),
+  isPartOf: { '@type': 'Periodical', name: d.venue },
+  ...(filled(d.doi) ? { identifier: `https://doi.org/${d.doi}` } : {}),
+};
+---
+<Base
+  lang={lang}
+  title={d.title}
+  description={tr(d.tldr, lang) || tr(d.abstract, lang).slice(0, 160)}
+  citation={{
+    title: d.title, authors: d.authors, year: d.year, journal: d.venue,
+    volume: d.volume, firstpage: (d.pages || '').split('-')[0], doi: d.doi, pdf: d.links?.pdf,
+  }}
+  jsonld={jsonld}
+>
+  <p><a href={href(lang, '/publications')}>← {t.back_to_pubs}</a></p>
+  <h1>{d.title}</h1>
+  <p class="pub__authors" set:html={d.authors.map((a: string) => (a === d.me ? `<b>${a}</b>` : a)).join(', ')} />
+  {filled(tr(d.role, lang)) && (
+    <p><span class="badge">{tr(d.role, lang)}</span></p>
+  )}
+  <p class="pub__venue"><em>{d.venue}</em>{filled(d.volume) && <> {d.volume}</>}{filled(d.pages) && <>, {d.pages}</>} ({d.year})</p>
+
+  {links.length > 0 && (
+    <p class="pub__links" style="margin-top: var(--sp-4)">
+      {links.map(([l, u]) => (<a href={u} rel="noopener">{l}</a>))}
+    </p>
+  )}
+
+  {d.figure && (
+    <figure>
+      <img src={`/img/${d.figure}.svg`} width="1200" height="800" alt="" role="presentation"
+           style="width:100%;border:var(--border);border-radius:var(--radius);background:var(--paper-2)" />
+    </figure>
+  )}
+
+  {filled(tr(d.abstract, lang)) && (
+    <section class="section">
+      <h2>{t.abstract}</h2>
+      <p>{tr(d.abstract, lang)}</p>
+    </section>
+  )}
+
+  <section class="section cite-box">
+    <h2>{t.cite}</h2>
+    <button class="icon-btn copy" type="button" data-bib={pub.id}>{t.copy}</button>
+    <pre id={`bib-${pub.id}`}>{bib}</pre>
+  </section>
+
+  <script define:vars={{ id: pub.id, copied: t.copied, copy: t.copy }}>
+    const btn = document.querySelector(`[data-bib="${id}"]`);
+    btn?.addEventListener('click', async () => {
+      const text = document.getElementById(`bib-${id}`)?.textContent ?? '';
+      try {
+        await navigator.clipboard.writeText(text);
+        btn.textContent = copied;
+        setTimeout(() => (btn.textContent = copy), 1600);
+      } catch {
+        // 剪贴板不可用（非安全上下文等）：选中文本让用户自己复制
+        const pre = document.getElementById(`bib-${id}`);
+        if (pre) { const r = document.createRange(); r.selectNodeContents(pre); getSelection()?.removeAllRanges(); getSelection()?.addRange(r); }
+      }
+    });
+  </script>
+</Base>

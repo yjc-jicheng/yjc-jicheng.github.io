@@ -1,0 +1,90 @@
+# ============================================================
+#  图集 —— 当前全部指向程序化生成的抽象图（public/img/generated/）
+#  换成真图时：把源图放 assets/_source/，跑 npm run images 生成衍生物，
+#  再把 src 改成 "img/<name>" 并填真实 width/height。
+#  注意：未发表数据、合作方数据、患者影像不要放上公网。
+# ============================================================
+
+- id: peptide-spectrum
+  src: "generated/spectrum"
+  width: 1200
+  height: 800
+  kind: svg
+  caption:
+    en: "Schematic: a peptide mass spectrum with annotated peaks (illustration, not data)."
+    zh: "示意图：带峰标注的肽段质谱图（图示，非真实数据）。"
+  alt:
+    en: "Abstract mass spectrum with a series of vertical peaks of varying height along a horizontal m/z axis."
+    zh: "抽象质谱图：沿水平 m/z 轴分布着一系列高度不同的垂直峰。"
+  credit: { en: "Illustration", zh: "示意图" }
+  tags: ["schematic", "mass spectrometry", "proteomics"]
+
+- id: proteomics-workflow
+  src: "generated/workflow"
+  width: 1200
+  height: 800
+  kind: svg
+  caption:
+    en: "Schematic: from sample preparation and LC-MS/MS to statistics and PRM validation."
+    zh: "示意图：从样本前处理、LC-MS/MS 到统计分析与 PRM 验证。"
+  alt:
+    en: "Five connected boxes labelled Samples, LC-MS/MS, Proteomics, ML/stats, and PRM."
+    zh: "五个相连的方框，依次标注 Samples、LC-MS/MS、Proteomics、ML/stats 与 PRM。"
+  credit: { en: "Illustration", zh: "示意图" }
+  tags: ["schematic", "workflow", "proteomics"]
+
+- id: differential-abundance
+  src: "generated/volcano"
+  width: 1200
+  height: 800
+  kind: svg
+  caption:
+    en: "Schematic: differential abundance volcano plot with two significance wings (illustration)."
+    zh: "示意图：差异丰度火山图，两侧为显著性变化的蛋白（图示）。"
+  alt:
+    en: "Abstract volcano plot with points scattered across two significance wings and dashed threshold lines."
+    zh: "抽象火山图：散点分布在两侧显著区域，并有虚线阈值。"
+  credit: { en: "Illustration", zh: "示意图" }
+  tags: ["schematic", "statistics", "proteomics"]
+
+- id: spatial-map
+  src: "generated/spatial"
+  width: 1200
+  height: 800
+  kind: svg
+  caption:
+    en: "Schematic: region-specific intensities on a tissue section (illustration, not data)."
+    zh: "示意图：组织切片上的区域特异性强度分布（图示，非真实数据）。"
+  alt:
+    en: "Irregular tissue outline filled with a grid of spots in three intensity colours and a small legend."
+    zh: "不规则组织轮廓内分布着三种强度颜色的网格斑点，并带有小图例。"
+  credit: { en: "Illustration", zh: "示意图" }
+  tags: ["schematic", "spatial omics", "imaging"]
+
+- id: pathway-network
+  src: "generated/network"
+  width: 1200
+  height: 800
+  kind: svg
+  caption:
+    en: "Schematic: a protein interaction or pathway network (illustration)."
+    zh: "示意图：蛋白互作或通路网络（图示）。"
+  alt:
+    en: "Abstract network of connected circular nodes of different sizes, with a few highlighted edges."
+    zh: "抽象网络图：大小不同的圆形节点通过连线相连，少数连线被高亮。"
+  credit: { en: "Illustration", zh: "示意图" }
+  tags: ["schematic", "network", "pathway"]
+
+- id: roc-curves
+  src: "generated/roc"
+  width: 1200
+  height: 800
+  kind: svg
+  caption:
+    en: "Schematic: ROC curves comparing three models (illustration, not the study data)."
+    zh: "示意图：三个模型的 ROC 曲线比较（图示，非研究真实数据）。"
+  alt:
+    en: "Three rising ROC curves above a diagonal chance line, labelled LR, RF, and XGB."
+    zh: "三条上升的 ROC 曲线位于对角机会线上方，分别标注 LR、RF 与 XGB。"
+  credit: { en: "Illustration", zh: "示意图" }
+  tags: ["schematic", "model evaluation", "clinical prediction"]

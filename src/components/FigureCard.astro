@@ -1,0 +1,26 @@
+---
+import type { Lang } from '@/lib/site';
+import { t as tr } from '@/lib/site';
+
+const { fig, lang } = Astro.props as { fig: any; lang: Lang };
+const d = fig.data;
+const src = `/img/${d.src}.${d.kind === 'svg' ? 'svg' : 'png'}`;
+const dlgId = `lb-${fig.id}`;
+---
+<figure class="fig-card">
+  <button type="button" data-open={dlgId} aria-label={tr(d.caption, lang)}>
+    <img src={src} alt={tr(d.alt, lang)} width={d.width} height={d.height} loading="lazy" decoding="async" />
+  </button>
+  <figcaption>
+    {tr(d.caption, lang)}
+    <span class="credit">{tr(d.credit, lang)}{d.tags.length > 0 && <> · {d.tags.join(' · ')}</>}</span>
+  </figcaption>
+</figure>
+
+<dialog class="lightbox" id={dlgId}>
+  <form method="dialog"><button class="icon-btn close" aria-label="Close">✕</button></form>
+  <figure style="margin:0">
+    <img src={src} alt={tr(d.alt, lang)} width={d.width} height={d.height} />
+    <figcaption>{tr(d.caption, lang)}</figcaption>
+  </figure>
+</dialog>

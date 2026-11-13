@@ -1,0 +1,20 @@
+---
+import type { Lang } from '@/lib/site';
+import { T } from '@/i18n/ui';
+import { getCollection } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import FigureCard from '@/components/FigureCard.astro';
+import Lightbox from '@/components/Lightbox.astro';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = T(lang);
+const figs = await getCollection('figures');
+---
+<Base lang={lang} title={t.nav_figures}>
+  <h1>{t.nav_figures}</h1>
+  <p>{t.figures_intro}</p>
+  <div class="fig-grid" style="margin-top: var(--sp-12)">
+    {figs.map((f) => (<FigureCard fig={f} lang={lang} />))}
+  </div>
+  <Lightbox />
+</Base>

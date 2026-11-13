@@ -1,0 +1,34 @@
+---
+import type { Lang } from '@/lib/site';
+import { href, filled, t as tr } from '@/lib/site';
+import { T } from '@/i18n/ui';
+
+const { pub, lang } = Astro.props as { pub: any; lang: Lang };
+const t = T(lang);
+const d = pub.data;
+const badge = d.status === 'preprint' ? t.preprint : d.status === 'in-press' ? t.in_press : '';
+const bits = [d.venue_short || d.venue, d.volume, d.pages].filter((x: string) => filled(x));
+const links: [string, string][] = [
+  ['PDF', d.links?.pdf],
+  ['Code', d.links?.code],
+  ['Data', d.links?.data],
+  ['DOI', filled(d.doi) && !/^TODO/.test(d.doi) ? `https://doi.org/${d.doi}` : ''],
+].filter(([, v]) => filled(v as string)) as [string, string][];
+---
+<li class="pub">
+  <h3 class="pub__title">
+    <a href={href(lang, `/publications/${pub.id}`)}>{d.title}</a>
+    {badge && <span class="badge">{badge}</span>}
+    {filled(tr(d.role, lang)) && <span class="badge">{tr(d.role, lang)}</span>}
+  </h3>
+  <p class="pub__authors" set:html={d.authors
+    .map((a: string) => (a === d.me ? `<b>${a}</b>` : a))
+    .join(', ')} />
+  <p class="pub__venue"><em>{bits[0]}</em>{bits.length > 1 && <>, {bits.slice(1).join(', ')}</>}</p>
+  <span class="pub__year tabular">{d.year}</span>
+  {links.length > 0 && (
+    <span class="pub__links">
+      {links.map(([label, url]) => (<a href={url} rel="noopener">{label}</a>))}
+    </span>
+  )}
+</li>

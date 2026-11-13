@@ -1,0 +1,166 @@
+/* ===========================================================
+   个人学术主页 · 设计令牌（design tokens）
+   用法：在全局样式最前面 @import 本文件，所有颜色/字号/间距
+   只许引用这里的变量，不许在组件里写死 hex 或 px 字号。
+   =========================================================== */
+
+:root {
+  /* ---- 字体族 ---------------------------------------------
+     展示字（标题/人名）用衬线，正文与界面用无衬线，
+     代码与数字用等宽。中文另给一套，避免英文衬线去凑中文。 */
+  --font-display: "Newsreader", "Source Serif 4", ui-serif, Georgia, serif;
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-cjk: "Noto Serif SC", "Source Han Serif SC", "Songti SC", serif;
+  --font-cjk-sans: "Noto Sans SC", "Source Han Sans SC", "PingFang SC", sans-serif;
+
+  /* ---- 字号阶梯（1.2 倍，流式） ---------------------------- */
+  --step--2: clamp(0.72rem, 0.70rem + 0.10vw, 0.78rem);
+  --step--1: clamp(0.84rem, 0.81rem + 0.15vw, 0.90rem);
+  --step-0:  clamp(1.00rem, 0.97rem + 0.18vw, 1.07rem);
+  --step-1:  clamp(1.20rem, 1.14rem + 0.30vw, 1.33rem);
+  --step-2:  clamp(1.44rem, 1.34rem + 0.50vw, 1.66rem);
+  --step-3:  clamp(1.73rem, 1.56rem + 0.85vw, 2.07rem);
+  --step-4:  clamp(2.07rem, 1.80rem + 1.35vw, 2.59rem);
+
+  --leading-tight: 1.18;
+  --leading-body: 1.65;
+  --measure: 68ch;        /* 正文行宽上限 */
+  --measure-narrow: 56ch; /* 摘要、图注 */
+
+  /* ---- 颜色（OKLCH，便于保持同等感知明度） -----------------
+     近单色 + 一个强调色。不要再加第二个强调色。 */
+  --paper:      oklch(98.6% 0.004 85);   /* 页面底 */
+  --paper-2:    oklch(96.4% 0.005 85);   /* 卡片/代码块底 */
+  --paper-sunk: oklch(93.8% 0.006 85);   /* 图片占位 */
+  --ink:        oklch(22% 0.012 265);    /* 正文 */
+  --ink-2:      oklch(46% 0.014 265);    /* 次级文字、图注 */
+  --ink-3:      oklch(62% 0.012 265);    /* 元信息、年份 */
+  --rule:       oklch(89% 0.006 265);    /* 分隔线、边框 */
+  --accent:     oklch(50% 0.125 248);    /* 链接、当前项 */
+  --accent-ink: oklch(38% 0.115 248);    /* 链接 hover */
+  --accent-wash:oklch(95.5% 0.025 248);  /* 选中背景、标签底 */
+  --focus:      oklch(62% 0.17 250);     /* 键盘焦点环 */
+
+  /* ---- 间距（8px 基准，只用这些档） ------------------------ */
+  --sp-1: 0.25rem; --sp-2: 0.5rem;  --sp-3: 0.75rem; --sp-4: 1rem;
+  --sp-6: 1.5rem;  --sp-8: 2rem;    --sp-12: 3rem;   --sp-16: 4rem;
+  --sp-24: 6rem;   --sp-32: 8rem;
+
+  --radius: 6px;
+  --radius-lg: 10px;
+  --border: 1px solid var(--rule);
+
+  /* 阴影极少用：学术站靠分隔线和留白，不靠投影 */
+  --shadow-lift: 0 1px 2px oklch(0% 0 0 / 0.06), 0 8px 24px oklch(0% 0 0 / 0.06);
+
+  --dur-fast: 120ms;
+  --dur: 200ms;
+  --ease: cubic-bezier(0.2, 0, 0.1, 1);
+}
+
+/* ---- 深色模式：跟随系统，且允许 [data-theme] 覆盖 ---------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:      oklch(16.5% 0.010 265);
+    --paper-2:    oklch(20.5% 0.012 265);
+    --paper-sunk: oklch(24% 0.012 265);
+    --ink:        oklch(93% 0.006 85);
+    --ink-2:      oklch(76% 0.010 265);
+    --ink-3:      oklch(60% 0.012 265);
+    --rule:       oklch(31% 0.012 265);
+    --accent:     oklch(78% 0.115 248);
+    --accent-ink: oklch(88% 0.090 248);
+    --accent-wash:oklch(27% 0.045 248);
+    --focus:      oklch(80% 0.15 250);
+    --shadow-lift: 0 1px 2px oklch(0% 0 0 / 0.5), 0 8px 24px oklch(0% 0 0 / 0.45);
+  }
+}
+:root[data-theme="dark"] {
+  --paper:      oklch(16.5% 0.010 265);
+  --paper-2:    oklch(20.5% 0.012 265);
+  --paper-sunk: oklch(24% 0.012 265);
+  --ink:        oklch(93% 0.006 85);
+  --ink-2:      oklch(76% 0.010 265);
+  --ink-3:      oklch(60% 0.012 265);
+  --rule:       oklch(31% 0.012 265);
+  --accent:     oklch(78% 0.115 248);
+  --accent-ink: oklch(88% 0.090 248);
+  --accent-wash:oklch(27% 0.045 248);
+  --focus:      oklch(80% 0.15 250);
+}
+
+/* ===========================================================
+   基础排版（可直接作为 base.css 的开头）
+   =========================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: var(--leading-body);
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 中文段落：换成中文字族，且中文不做斜体 */
+:lang(zh), .cjk { font-family: var(--font-cjk-sans); line-height: 1.8; }
+:lang(zh) em, .cjk em { font-style: normal; font-weight: 600; }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  line-height: var(--leading-tight);
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  text-wrap: balance;          /* 标题不留孤字 */
+  margin: var(--sp-12) 0 var(--sp-4);
+}
+h1 { font-size: var(--step-4); margin-top: 0; }
+h2 { font-size: var(--step-2); }
+h3 { font-size: var(--step-1); font-family: var(--font-sans); font-weight: 600; }
+
+p, li { text-wrap: pretty; }
+p { margin: 0 0 var(--sp-4); max-width: var(--measure); }
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: color var(--dur-fast) var(--ease);
+}
+a:hover { color: var(--accent-ink); }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 3px; }
+
+/* 文献列表、年份、指标：等宽数字对齐 */
+.tabular, time, .pub-year { font-variant-numeric: tabular-nums; }
+
+hr { border: 0; border-top: var(--border); margin: var(--sp-12) 0; }
+
+figure { margin: var(--sp-8) 0; }
+figcaption {
+  font-size: var(--step--1);
+  color: var(--ink-2);
+  max-width: var(--measure-narrow);
+  margin-top: var(--sp-3);
+}
+img, video, canvas { max-width: 100%; height: auto; display: block; }
+
+code, pre { font-family: var(--font-mono); font-size: 0.92em; }
+pre { background: var(--paper-2); padding: var(--sp-4); border-radius: var(--radius); overflow-x: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* 打印：导师/评审会直接打印你的 CV 页 */
+@media print {
+  :root { --paper: #fff; --ink: #000; --ink-2: #333; --rule: #bbb; }
+  nav, .no-print { display: none !important; }
+  a { color: #000; text-decoration: none; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.85em; color: #555; }
+}

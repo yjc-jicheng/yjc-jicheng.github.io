@@ -1,0 +1,44 @@
+---
+import type { Lang } from '@/lib/site';
+import { site, t as tr } from '@/lib/site';
+import { T } from '@/i18n/ui';
+import { getCollection } from 'astro:content';
+import { render } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = T(lang);
+const projects = (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order);
+const rendered = await Promise.all(projects.map(async (p) => ({ p, Content: (await render(p)).Content })));
+---
+<Base lang={lang} title={t.nav_research}>
+  <h1>{t.research_lines}</h1>
+  {(site.research ?? []).map((line) => (
+    <article class="line">
+      <div>
+        <h3>{tr(line.title, lang)}</h3>
+        <p><strong>{tr(line.summary, lang)}</strong></p>
+        <p>{tr(line.detail, lang)}</p>
+      </div>
+      {line.figure && (
+        <img src={`/img/${line.figure}.svg`} width="1200" height="800" alt="" role="presentation" />
+      )}
+    </article>
+  ))}
+
+  {rendered.length > 0 && (
+    <section class="section">
+      <h2>{t.projects}</h2>
+      {rendered.map(({ p, Content }) => (
+        <article class="line">
+          <div>
+            <h3>{tr(p.data.title, lang)}</h3>
+            <p class="pub__venue">{p.data.period}{p.data.role && <> · {p.data.role}</>}{p.data.stack.length > 0 && <> · {p.data.stack.join(', ')}</>}</p>
+            <Content />
+          </div>
+          {p.data.hero && <img src={`/img/${p.data.hero}.svg`} width="1200" height="800" alt="" role="presentation" />}
+        </article>
+      ))}
+    </section>
+  )}
+</Base>

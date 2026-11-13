@@ -1,0 +1,51 @@
+---
+import type { Lang, CvEntry } from '@/lib/site';
+import { cv, site, t as tr, filled } from '@/lib/site';
+import { T } from '@/i18n/ui';
+import Base from '@/layouts/Base.astro';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = T(lang);
+const groups: [string, CvEntry[]][] = [
+  [t.education, cv.education ?? []],
+  [t.positions, cv.positions ?? []],
+  [t.awards, cv.awards ?? []],
+  [t.talks, cv.talks ?? []],
+  [t.service, cv.service ?? []],
+];
+---
+<Base lang={lang} title={t.nav_cv}>
+  <h1>{t.nav_cv}</h1>
+  <p class="intro__affil">{tr(site.name, lang)} · {tr(site.affiliation, lang)} · {site.email}</p>
+  {filled(site.links?.cv_pdf) && (
+    <p class="no-print"><a class="icon-btn" href={site.links.cv_pdf}>{t.cv_download}</a></p>
+  )}
+
+  {groups.filter(([, rows]) => rows.length > 0).map(([name, rows]) => (
+    <section class="cv-group">
+      <h2 style="font-size: var(--step--1); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3); border-bottom: var(--border); padding-bottom: var(--sp-2)">{name}</h2>
+      {rows.map((r) => (
+        <div class="cv-row">
+          <span class="period">{r.period}</span>
+          <div>
+            <div class="what">{tr(r.what, lang)}</div>
+            {filled(tr(r.where, lang)) && <div class="where">{tr(r.where, lang)}</div>}
+            {filled(tr(r.note, lang)) && <div class="note">{tr(r.note, lang)}</div>}
+          </div>
+        </div>
+      ))}
+    </section>
+  ))}
+
+  {(cv.skills ?? []).length > 0 && (
+    <section class="cv-group">
+      <h2 style="font-size: var(--step--1); text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3); border-bottom: var(--border); padding-bottom: var(--sp-2)">{t.skills}</h2>
+      {cv.skills.map((g) => (
+        <div class="cv-row">
+          <span class="period">{tr(g.group, lang)}</span>
+          <div>{g.items.join(' · ')}</div>
+        </div>
+      ))}
+    </section>
+  )}
+</Base>

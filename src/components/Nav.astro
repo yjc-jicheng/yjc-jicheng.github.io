@@ -1,0 +1,32 @@
+---
+import type { Lang } from '@/lib/site';
+import { site, t as tr, href } from '@/lib/site';
+import { T } from '@/i18n/ui';
+import ThemeToggle from './ThemeToggle.astro';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = T(lang);
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const items = [
+  { href: href(lang, '/'), label: t.nav_home },
+  { href: href(lang, '/research'), label: t.nav_research },
+  { href: href(lang, '/publications'), label: t.nav_pubs },
+  { href: href(lang, '/figures'), label: t.nav_figures },
+  { href: href(lang, '/cv'), label: t.nav_cv },
+];
+const other: Lang = lang === 'zh' ? 'en' : 'zh';
+const switchTo = href(other, path.replace(/^\/zh/, '') || '/');
+const isCurrent = (h: string) => (h === '/' ? path === '/' || path === '/zh' : path.startsWith(h));
+---
+<header class="site-head">
+  <a class="site-head__name" href={href(lang, '/')}>{tr(site.name, lang)}</a>
+  <nav class="site-nav" aria-label={t.nav_home}>
+    {items.map((i) => (
+      <a href={i.href} aria-current={isCurrent(i.href) ? 'page' : undefined}>{i.label}</a>
+    ))}
+  </nav>
+  <div class="site-tools">
+    <a class="icon-btn" href={switchTo} hreflang={other} rel="alternate">{t.lang_switch}</a>
+    <ThemeToggle lang={lang} />
+  </div>
+</header>

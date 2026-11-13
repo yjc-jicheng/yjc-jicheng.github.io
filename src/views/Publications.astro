@@ -1,0 +1,23 @@
+---
+import type { Lang } from '@/lib/site';
+import { T } from '@/i18n/ui';
+import { getCollection } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import PubEntry from '@/components/PubEntry.astro';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = T(lang);
+const all = (await getCollection('publications')).sort((a, b) => b.data.year - a.data.year);
+const years = [...new Set(all.map((p) => p.data.year))].sort((a, b) => b - a);
+---
+<Base lang={lang} title={t.nav_pubs}>
+  <h1>{t.all_pubs}</h1>
+  {years.map((y) => (
+    <section>
+      <h2 class="year-head">{y}</h2>
+      <ul class="pubs">
+        {all.filter((p) => p.data.year === y).map((p) => (<PubEntry pub={p} lang={lang} />))}
+      </ul>
+    </section>
+  ))}
+</Base>

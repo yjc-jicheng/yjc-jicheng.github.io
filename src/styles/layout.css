@@ -1,0 +1,131 @@
+/* 版式与组件。只允许引用 tokens.css 的变量，不得出现写死的颜色或 px 字号。 */
+
+.skip-link {
+  position: absolute; left: var(--sp-4); top: -3rem; z-index: 10;
+  background: var(--paper); color: var(--ink);
+  padding: var(--sp-2) var(--sp-4); border: var(--border); border-radius: var(--radius);
+  transition: top var(--dur) var(--ease);
+}
+.skip-link:focus { top: var(--sp-4); }
+
+.wrap { width: min(100% - 2rem, 60rem); margin-inline: auto; }
+@media (min-width: 40em) { .wrap { width: min(100% - 4rem, 60rem); } }
+
+/* ---------- 头部导航 ---------- */
+.site-head {
+  display: flex; align-items: baseline; gap: var(--sp-6); flex-wrap: wrap;
+  padding: var(--sp-6) 0 var(--sp-4);
+  border-bottom: var(--border);
+  margin-bottom: var(--sp-12);
+}
+.site-head__name {
+  font-family: var(--font-display); font-size: var(--step-1); font-weight: 500;
+  letter-spacing: -0.01em; text-decoration: none; color: var(--ink); margin-right: auto;
+}
+.site-nav { display: flex; gap: var(--sp-4); flex-wrap: wrap; align-items: baseline; }
+.site-nav a {
+  font-size: var(--step--1); text-decoration: none; color: var(--ink-2);
+  padding-bottom: 2px; border-bottom: 2px solid transparent;
+}
+.site-nav a:hover { color: var(--ink); }
+.site-nav a[aria-current='page'] { color: var(--ink); border-bottom-color: var(--accent); }
+.site-tools { display: flex; gap: var(--sp-3); align-items: center; font-size: var(--step--1); }
+.icon-btn {
+  background: none; border: var(--border); border-radius: var(--radius);
+  color: var(--ink-2); padding: var(--sp-1) var(--sp-2); cursor: pointer; font: inherit;
+  font-size: var(--step--2); line-height: 1.4;
+}
+.icon-btn:hover { color: var(--ink); border-color: var(--ink-3); }
+
+/* ---------- 首页 ---------- */
+.intro { display: grid; gap: var(--sp-8); align-items: start; }
+@media (min-width: 52em) { .intro { grid-template-columns: 1.15fr 0.85fr; gap: var(--sp-12); } }
+.intro h1 { font-size: var(--step-4); margin-bottom: var(--sp-2); }
+.intro__tagline { color: var(--ink-2); font-size: var(--step-1); font-family: var(--font-display); margin-bottom: var(--sp-1); }
+.intro__affil { color: var(--ink-3); font-size: var(--step--1); margin-bottom: var(--sp-6); }
+.intro__figure { margin: 0; }
+.intro__figure img { width: 100%; border: var(--border); border-radius: var(--radius-lg); background: var(--paper-2); }
+
+.meta-list { list-style: none; padding: 0; margin: var(--sp-6) 0 0; font-size: var(--step--1); }
+.meta-list li { display: flex; gap: var(--sp-3); padding: var(--sp-2) 0; border-top: var(--border); }
+.meta-list dt, .meta-list .k { color: var(--ink-3); min-width: 6.5rem; }
+
+/* ---------- 章节标题 ---------- */
+.section { margin-top: var(--sp-16); }
+.section > h2 {
+  font-size: var(--step--1); font-family: var(--font-sans); font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em; color: var(--ink-3);
+  padding-bottom: var(--sp-2); border-bottom: var(--border); margin: 0 0 var(--sp-6);
+}
+
+/* ---------- 论文条目 ---------- */
+.pubs { list-style: none; padding: 0; margin: 0; }
+.pub {
+  display: grid; grid-template-columns: 1fr auto; gap: var(--sp-2) var(--sp-6);
+  padding: var(--sp-4) 0; border-bottom: var(--border);
+}
+.pub:first-child { border-top: var(--border); }
+.pub__title { font-weight: 600; margin: 0; }
+.pub__title a { color: var(--ink); text-decoration: none; }
+.pub__title a:hover { color: var(--accent); text-decoration: underline; }
+.pub__authors { color: var(--ink-2); font-size: var(--step--1); margin: var(--sp-1) 0 0; }
+.pub__authors b { color: var(--ink); font-weight: 600; }
+.pub__venue { color: var(--ink-2); font-size: var(--step--1); margin: var(--sp-1) 0 0; }
+.pub__venue em { font-style: italic; }
+.pub__year { grid-column: 2; grid-row: 1 / span 2; color: var(--ink-3); font-variant-numeric: tabular-nums; font-size: var(--step--1); }
+.pub__links { grid-column: 1 / -1; display: flex; gap: var(--sp-3); flex-wrap: wrap; margin-top: var(--sp-2); font-size: var(--step--2); }
+.pub__links a, .tag {
+  text-decoration: none; border: var(--border); border-radius: 999px;
+  padding: 1px var(--sp-2); color: var(--ink-2);
+}
+.pub__links a:hover { color: var(--accent); border-color: var(--accent); }
+.tag { color: var(--ink-3); background: var(--paper-2); }
+.badge {
+  font-size: var(--step--2); color: var(--accent); background: var(--accent-wash);
+  border-radius: 999px; padding: 1px var(--sp-2); margin-left: var(--sp-2); white-space: nowrap;
+}
+.year-head { font-family: var(--font-sans); font-size: var(--step--1); color: var(--ink-3); font-variant-numeric: tabular-nums; margin: var(--sp-12) 0 var(--sp-2); }
+
+/* ---------- 图集 ---------- */
+.fig-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr)); gap: var(--sp-8) var(--sp-6); }
+.fig-card { margin: 0; }
+.fig-card button {
+  display: block; width: 100%; padding: 0; background: var(--paper-2);
+  border: var(--border); border-radius: var(--radius); cursor: zoom-in; overflow: hidden;
+}
+.fig-card img { width: 100%; display: block; }
+.fig-card figcaption { margin-top: var(--sp-3); }
+.fig-card .credit { color: var(--ink-3); font-size: var(--step--2); display: block; margin-top: var(--sp-1); }
+
+dialog.lightbox { border: none; padding: 0; background: transparent; max-width: 96vw; max-height: 96vh; }
+dialog.lightbox::backdrop { background: oklch(0% 0 0 / 0.72); }
+dialog.lightbox img { max-width: 92vw; max-height: 80vh; border-radius: var(--radius); background: var(--paper); }
+dialog.lightbox figcaption { color: var(--paper); max-width: 60ch; margin-top: var(--sp-3); font-size: var(--step--1); }
+dialog.lightbox .close { position: absolute; top: var(--sp-2); right: var(--sp-2); }
+
+/* ---------- 研究 / 项目 ---------- */
+.line { display: grid; gap: var(--sp-6); padding: var(--sp-8) 0; border-bottom: var(--border); }
+@media (min-width: 52em) { .line { grid-template-columns: 1fr 24rem; gap: var(--sp-12); align-items: start; } }
+.line h3 { margin-top: 0; }
+.line img { width: 100%; border: var(--border); border-radius: var(--radius); background: var(--paper-2); }
+
+/* ---------- CV ---------- */
+.cv-group { margin-top: var(--sp-12); }
+.cv-row { display: grid; grid-template-columns: 7.5rem 1fr; gap: var(--sp-4); padding: var(--sp-3) 0; border-top: var(--border); }
+.cv-row .period { color: var(--ink-3); font-variant-numeric: tabular-nums; font-size: var(--step--1); }
+.cv-row .what { font-weight: 600; }
+.cv-row .where, .cv-row .note { color: var(--ink-2); font-size: var(--step--1); }
+@media (max-width: 34em) { .cv-row { grid-template-columns: 1fr; gap: var(--sp-1); } }
+
+/* ---------- BibTeX ---------- */
+.cite-box { margin-top: var(--sp-8); }
+.cite-box pre { position: relative; }
+.cite-box .copy { margin-bottom: var(--sp-2); }
+
+/* ---------- 页脚 ---------- */
+.site-foot {
+  margin-top: var(--sp-24); padding: var(--sp-6) 0 var(--sp-12);
+  border-top: var(--border); color: var(--ink-3); font-size: var(--step--1);
+  display: flex; gap: var(--sp-6); flex-wrap: wrap; justify-content: space-between;
+}
+.site-foot a { color: var(--ink-2); }

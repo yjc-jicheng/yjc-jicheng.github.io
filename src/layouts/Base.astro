@@ -1,0 +1,89 @@
+---
+import '@/styles/tokens.css';
+import '@/styles/layout.css';
+import type { Lang } from '@/lib/site';
+import { site, t as tr, filled } from '@/lib/site';
+import { T } from '@/i18n/ui';
+import Nav from '@/components/Nav.astro';
+import Footer from '@/components/Footer.astro';
+
+interface Props {
+  lang: Lang;
+  title?: string;
+  description?: string;
+  /** 论文详情页传入，用于输出 Google Scholar 的 citation_* 标签 */
+  citation?: {
+    title: string; authors: string[]; year: number; journal: string;
+    volume?: string; firstpage?: string; doi?: string; pdf?: string;
+  };
+  jsonld?: Record<string, unknown>;
+}
+const { lang, title, description, citation, jsonld } = Astro.props;
+const t = T(lang);
+const name = tr(site.name, lang);
+const pageTitle = title ? `${title} · ${name}` : `${name} · ${tr(site.tagline, lang)}`;
+const desc = description || tr(site.bio, lang).slice(0, 160);
+const canonical = new URL(Astro.url.pathname, Astro.site ?? 'https://example.github.io').href;
+const og = new URL(site.og_image, Astro.site ?? 'https://example.github.io').href;
+
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name,
+  jobTitle: tr(site.tagline, lang),
+  affiliation: { '@type': 'Organization', name: tr(site.affiliation, lang) },
+  url: canonical,
+  sameAs: Object.values(site.links ?? {}).filter((v) => filled(v as string)),
+};
+---
+<!doctype html>
+<html lang={lang === 'zh' ? 'zh-CN' : 'en'}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={desc} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:image" content={og} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="color-scheme" content="light dark" />
+    <link rel="alternate" hreflang="en" href={new URL('/', Astro.site ?? 'https://example.github.io').href} />
+    <link rel="alternate" hreflang="zh" href={new URL('/zh', Astro.site ?? 'https://example.github.io').href} />
+
+    {/* Google Scholar 索引所需，缺了它 Scholar 抓不到主页上的 PDF */}
+    {citation && (
+      <>
+        <meta name="citation_title" content={citation.title} />
+        {citation.authors.map((a) => (<meta name="citation_author" content={a} />))}
+        <meta name="citation_publication_date" content={String(citation.year)} />
+        <meta name="citation_journal_title" content={citation.journal} />
+        {filled(citation.volume) && <meta name="citation_volume" content={citation.volume} />}
+        {filled(citation.firstpage) && <meta name="citation_firstpage" content={citation.firstpage} />}
+        {filled(citation.doi) && <meta name="citation_doi" content={citation.doi} />}
+        {filled(citation.pdf) && <meta name="citation_pdf_url" content={new URL(citation.pdf!, Astro.site ?? 'https://example.github.io').href} />}
+      </>
+    )}
+
+    <script is:inline>
+      // 在首帧前设定主题，避免深色模式闪白
+      try {
+        const saved = localStorage.getItem('theme');
+        if (saved === 'dark' || saved === 'light') document.documentElement.dataset.theme = saved;
+      } catch (e) {}
+    </script>
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonld ?? person)} is:inline />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t.skip}</a>
+    <div class="wrap">
+      <Nav lang={lang} />
+      <main id="main"><slot /></main>
+      <Footer lang={lang} />
+    </div>
+  </body>
+</html>

@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+# 生成物：由 npm run figures 产生，不入库
+public/img/generated/
+# 原始大图/体数据一律不入库（见 AGENTS.md）
+assets/_source/
+*.tif
+*.tiff
+*.zarr/

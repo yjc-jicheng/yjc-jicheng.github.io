@@ -1,0 +1,58 @@
+---
+import type { Lang } from '@/lib/site';
+import { site, t as tr, href, filled } from '@/lib/site';
+import { T } from '@/i18n/ui';
+import { getCollection } from 'astro:content';
+import Base from '@/layouts/Base.astro';
+import PubEntry from '@/components/PubEntry.astro';
+
+const { lang } = Astro.props as { lang: Lang };
+const t = T(lang);
+const pubs = (await getCollection('publications'))
+  .filter((p) => p.data.selected)
+  .sort((a, b) => b.data.year - a.data.year);
+const news = (site.news ?? []).slice(0, 3);
+const fmt = (d: string | Date) => new Date(d).toISOString().slice(0, 10);
+---
+<Base lang={lang}>
+  <section class="intro">
+    <div>
+      <h1>{tr(site.name, lang)}</h1>
+      <p class="intro__tagline">{tr(site.tagline, lang)}</p>
+      <p class="intro__affil">{tr(site.affiliation, lang)}</p>
+      <p>{tr(site.bio, lang)}</p>
+      <ul class="meta-list">
+        <li><span class="k">{t.contact}</span><span>{site.email}</span></li>
+        {filled(site.links?.orcid) && <li><span class="k">ORCID</span><a href={site.links.orcid}>{site.links.orcid.replace(/^https?:\/\//, '')}</a></li>}
+        {filled(site.links?.scholar) && <li><span class="k">Scholar</span><a href={site.links.scholar}>profile</a></li>}
+        {filled(site.links?.github) && <li><span class="k">GitHub</span><a href={site.links.github}>{site.links.github.replace(/^https?:\/\/(www\.)?github\.com\//, '')}</a></li>}
+      </ul>
+    </div>
+    <figure class="intro__figure">
+      <img src="/img/generated/spectrum.svg" width="1200" height="800" alt={lang === 'zh'
+        ? '抽象质谱示意图：沿水平 m/z 轴分布着一系列高度不同的垂直峰。'
+        : 'Abstract mass spectrum with a series of vertical peaks of varying height along a horizontal m/z axis.'} />
+    </figure>
+  </section>
+
+  {news.length > 0 && (
+    <section class="section">
+      <h2>{t.news}</h2>
+      <ul class="meta-list">
+        {news.map((n) => (
+          <li><time class="k" datetime={fmt(n.date)}>{fmt(n.date)}</time><span>{tr(n.text, lang)}</span></li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {pubs.length > 0 && (
+    <section class="section">
+      <h2>{t.selected_pubs}</h2>
+      <ul class="pubs">
+        {pubs.map((p) => (<PubEntry pub={p} lang={lang} />))}
+      </ul>
+      <p style="margin-top: var(--sp-6)"><a href={href(lang, '/publications')}>{t.all_pubs} →</a></p>
+    </section>
+  )}
+</Base>
