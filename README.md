@@ -19,9 +19,9 @@ npm run dev        # http://localhost:4321
    ```bash
    grep -rn "TODO(" src/ public/ astro.config.mjs
    ```
-5. **推送**：仓库名必须是 `<你的用户名>.github.io`，推到 `main`。
-   在 GitHub 仓库 Settings → Pages → Source 选 **GitHub Actions**，
-   `.github/workflows/deploy.yml` 会自动构建部署。
+5. **部署**：仓库名必须是 `<你的用户名>.github.io`。当前仓库的 `main` 保存源码，
+   `gh-pages` 保存构建产物；修改后运行 `npm run build`，把 `dist/` 内容推到 `gh-pages`。
+   GitHub Pages 的 Source 设为 `gh-pages` 分支根目录。
 
 ## 日常维护
 
