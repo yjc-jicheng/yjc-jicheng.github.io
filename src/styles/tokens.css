@@ -30,9 +30,11 @@
 
   /* ---- 颜色（OKLCH，便于保持同等感知明度） -----------------
      近单色 + 一个强调色。不要再加第二个强调色。 */
-  --paper:      oklch(98.6% 0.004 85);   /* 页面底 */
-  --paper-2:    oklch(96.4% 0.005 85);   /* 卡片/代码块底 */
-  --paper-sunk: oklch(93.8% 0.006 85);   /* 图片占位 */
+  --paper:      oklch(97.6% 0.009 250);  /* 页面底 */
+  --paper-2:    oklch(96.6% 0.007 250);  /* 卡片/代码块底 */
+  --paper-sunk: oklch(94.5% 0.009 250);  /* 图片占位 */
+  --surface:    oklch(99.6% 0.002 85);   /* 主内容纸面 */
+  --surface-2:  oklch(98.5% 0.004 250);  /* 条目卡片 */
   --ink:        oklch(22% 0.012 265);    /* 正文 */
   --ink-2:      oklch(46% 0.014 265);    /* 次级文字、图注 */
   --ink-3:      oklch(62% 0.012 265);    /* 元信息、年份 */
@@ -40,6 +42,7 @@
   --accent:     oklch(50% 0.125 248);    /* 链接、当前项 */
   --accent-ink: oklch(38% 0.115 248);    /* 链接 hover */
   --accent-wash:oklch(95.5% 0.025 248);  /* 选中背景、标签底 */
+  --on-accent:  oklch(99% 0 0);          /* 强调色上的文字 */
   --focus:      oklch(62% 0.17 250);     /* 键盘焦点环 */
 
   /* ---- 间距（8px 基准，只用这些档） ------------------------ */
@@ -48,7 +51,8 @@
   --sp-24: 6rem;   --sp-32: 8rem;
 
   --radius: 6px;
-  --radius-lg: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 18px;
   --border: 1px solid var(--rule);
 
   /* 阴影极少用：学术站靠分隔线和留白，不靠投影 */
@@ -62,9 +66,11 @@
 /* ---- 深色模式：跟随系统，且允许 [data-theme] 覆盖 ---------- */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --paper:      oklch(16.5% 0.010 265);
-    --paper-2:    oklch(20.5% 0.012 265);
-    --paper-sunk: oklch(24% 0.012 265);
+    --paper:      oklch(15.5% 0.012 265);
+    --paper-2:    oklch(19% 0.012 265);
+    --paper-sunk: oklch(23% 0.012 265);
+    --surface:    oklch(19.5% 0.012 265);
+    --surface-2:  oklch(22% 0.014 265);
     --ink:        oklch(93% 0.006 85);
     --ink-2:      oklch(76% 0.010 265);
     --ink-3:      oklch(60% 0.012 265);
@@ -72,14 +78,17 @@
     --accent:     oklch(78% 0.115 248);
     --accent-ink: oklch(88% 0.090 248);
     --accent-wash:oklch(27% 0.045 248);
+    --on-accent:  oklch(18% 0.012 265);
     --focus:      oklch(80% 0.15 250);
     --shadow-lift: 0 1px 2px oklch(0% 0 0 / 0.5), 0 8px 24px oklch(0% 0 0 / 0.45);
   }
 }
 :root[data-theme="dark"] {
-  --paper:      oklch(16.5% 0.010 265);
-  --paper-2:    oklch(20.5% 0.012 265);
-  --paper-sunk: oklch(24% 0.012 265);
+  --paper:      oklch(15.5% 0.012 265);
+  --paper-2:    oklch(19% 0.012 265);
+  --paper-sunk: oklch(23% 0.012 265);
+  --surface:    oklch(19.5% 0.012 265);
+  --surface-2:  oklch(22% 0.014 265);
   --ink:        oklch(93% 0.006 85);
   --ink-2:      oklch(76% 0.010 265);
   --ink-3:      oklch(60% 0.012 265);
@@ -87,6 +96,7 @@
   --accent:     oklch(78% 0.115 248);
   --accent-ink: oklch(88% 0.090 248);
   --accent-wash:oklch(27% 0.045 248);
+  --on-accent:  oklch(18% 0.012 265);
   --focus:      oklch(80% 0.15 250);
 }
 
@@ -98,7 +108,9 @@ html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
-  background: var(--paper);
+  background:
+    radial-gradient(1100px 520px at 12% -8%, var(--accent-wash), transparent 68%),
+    var(--paper);
   color: var(--ink);
   font-family: var(--font-sans);
   font-size: var(--step-0);

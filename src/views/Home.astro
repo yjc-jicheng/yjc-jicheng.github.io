@@ -1,6 +1,6 @@
 ---
 import type { Lang } from '@/lib/site';
-import { site, t as tr, href, filled } from '@/lib/site';
+import { site, cv, t as tr, href, filled } from '@/lib/site';
 import { T } from '@/i18n/ui';
 import { getCollection } from 'astro:content';
 import Base from '@/layouts/Base.astro';
@@ -8,10 +8,15 @@ import PubEntry from '@/components/PubEntry.astro';
 
 const { lang } = Astro.props as { lang: Lang };
 const t = T(lang);
-const pubs = (await getCollection('publications'))
+const allPubs = await getCollection('publications');
+const pubs = allPubs
   .filter((p) => p.data.selected)
   .sort((a, b) => b.data.year - a.data.year);
+const nFirst = allPubs.filter((p) => /first/i.test(p.data.role?.en ?? '')).length;
+const awards = cv.awards ?? [];
 const news = (site.news ?? []).slice(0, 3);
+const emailHref = 'mailto:' + site.email.replace(' [at] ', '@');
+const hasMeta = filled(site.links?.orcid) || filled(site.links?.scholar);
 const fmt = (d: string | Date) => new Date(d).toISOString().slice(0, 10);
 ---
 <Base lang={lang}>
@@ -21,12 +26,25 @@ const fmt = (d: string | Date) => new Date(d).toISOString().slice(0, 10);
       <p class="intro__tagline">{tr(site.tagline, lang)}</p>
       <p class="intro__affil">{tr(site.affiliation, lang)}</p>
       <p>{tr(site.bio, lang)}</p>
-      <ul class="meta-list">
-        <li><span class="k">{t.contact}</span><span>{site.email}</span></li>
-        {filled(site.links?.orcid) && <li><span class="k">ORCID</span><a href={site.links.orcid}>{site.links.orcid.replace(/^https?:\/\//, '')}</a></li>}
-        {filled(site.links?.scholar) && <li><span class="k">Scholar</span><a href={site.links.scholar}>profile</a></li>}
-        {filled(site.links?.github) && <li><span class="k">GitHub</span><a href={site.links.github}>{site.links.github.replace(/^https?:\/\/(www\.)?github\.com\//, '')}</a></li>}
+
+      <ul class="hero-stats">
+        <li><strong>{allPubs.length}</strong><span>{t.papers}</span></li>
+        <li><strong>{nFirst}</strong><span>{t.first_cofirst}</span></li>
+        <li><strong>{site.research.length}</strong><span>{t.research_areas}</span></li>
       </ul>
+
+      <div class="hero-links">
+        <a class="btn" href={emailHref}>{t.email}</a>
+        {filled(site.links?.github) && <a class="btn btn--ghost" href={site.links.github} rel="noopener">GitHub</a>}
+        {filled(site.links?.cv_pdf) && <a class="btn btn--ghost" href={site.links.cv_pdf}>{t.cv_download}</a>}
+      </div>
+
+      {hasMeta && (
+        <ul class="meta-list">
+          {filled(site.links?.orcid) && <li><span class="k">ORCID</span><a href={site.links.orcid}>{site.links.orcid.replace(/^https?:\/\//, '')}</a></li>}
+          {filled(site.links?.scholar) && <li><span class="k">Scholar</span><a href={site.links.scholar}>profile</a></li>}
+        </ul>
+      )}
     </div>
     <figure class="intro__figure">
       <img src="/img/generated/spectrum.svg" width="1200" height="800" alt={lang === 'zh'
@@ -53,6 +71,24 @@ const fmt = (d: string | Date) => new Date(d).toISOString().slice(0, 10);
         {pubs.map((p) => (<PubEntry pub={p} lang={lang} />))}
       </ul>
       <p style="margin-top: var(--sp-6)"><a href={href(lang, '/publications')}>{t.all_pubs} →</a></p>
+    </section>
+  )}
+
+  {awards.length > 0 && (
+    <section class="section" id="awards">
+      <h2>{t.awards}</h2>
+      <ul class="award-list">
+        {awards.map((a) => (
+          <li class="award">
+            <span class="award__year">{a.period}</span>
+            <div>
+              <strong>{tr(a.what, lang)}</strong>
+              {filled(tr(a.where, lang)) && <span class="award__where">{tr(a.where, lang)}</span>}
+              {filled(tr(a.note, lang)) && <span class="award__note">{tr(a.note, lang)}</span>}
+            </div>
+          </li>
+        ))}
+      </ul>
     </section>
   )}
 </Base>

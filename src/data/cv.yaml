@@ -1,6 +1,12 @@
 # 在线 CV 内容。每个条目的 period 用 "2024–2026" 或 "2024–" 形式。
 education:
-  - period: "2023–"
+  - period: "2026–"
+    what: { en: "PhD candidate", zh: "博士研究生" }
+    where: { en: "Peking University First Hospital", zh: "北京大学第一医院" }
+    note:
+      en: "Research focus: proteomics and spatial omics"
+      zh: "研究方向：蛋白质组学与空间组学"
+  - period: "2023–2026"
     what: { en: "MSc in Chinese Materia Medica", zh: "中药学 硕士" }
     where: { en: "China Academy of Chinese Medical Sciences", zh: "中国中医科学院" }
     note:
@@ -12,7 +18,11 @@ education:
     note: { en: "GPA 3.7/5.0; CET-6", zh: "GPA 3.7/5.0；CET-6" }
 
 positions:
-  - period: "2023–"
+  - period: "2026–"
+    what: { en: "PhD Researcher", zh: "博士研究生（科研）" }
+    where: { en: "Peking University First Hospital", zh: "北京大学第一医院" }
+    note: { en: "", zh: "" }
+  - period: "2023–2026"
     what: { en: "Graduate Researcher", zh: "硕士研究生（科研）" }
     where: { en: "Medical Research Center, CACMS", zh: "中国中医科学院 医学实验中心" }
     note:

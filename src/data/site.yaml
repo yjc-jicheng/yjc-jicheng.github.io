@@ -8,25 +8,27 @@ name:
 
 # 一行身份，出现在姓名下方
 tagline:
-  en: "MSc candidate · Proteomics & Spatial Omics"
-  zh: "硕士研究生 · 蛋白质组学与空间组学"
+  en: "PhD candidate · Proteomics & Spatial Omics"
+  zh: "博士研究生 · 蛋白质组学与空间组学"
 
 affiliation:
-  en: "Medical Research Center, China Academy of Chinese Medical Sciences"
-  zh: "中国中医科学院 医学实验中心"
+  en: "Peking University First Hospital"
+  zh: "北京大学第一医院"
 
 # 首页前两三句话：在做什么、用什么方法、关心什么问题。
 bio:
   en: >
-    I use mass spectrometry-based proteomics, spatial omics, and machine learning
-    to study how traditional Chinese medicines act in acute liver injury, acute
-    lung injury, ulcerative colitis, and heart failure. I am particularly interested
-    in turning high-throughput discovery into mechanistic hypotheses and blood
-    biomarkers that can be validated by targeted PRM assays.
+    I am a PhD candidate at Peking University First Hospital. I use mass
+    spectrometry-based proteomics, spatial omics, and machine learning to study
+    how traditional Chinese medicines act in acute liver injury, acute lung injury,
+    ulcerative colitis, and heart failure. I am particularly interested in turning
+    high-throughput discovery into mechanistic hypotheses and blood biomarkers
+    that can be validated by targeted PRM assays.
   zh: >
-    我使用基于质谱的蛋白质组学、空间组学与机器学习，研究中药在急性肝损伤、
-    急性肺损伤、溃疡性结肠炎与心力衰竭中的作用机制，并关注如何把高通量发现
-    转化为可验证的机制假设与血液标志物，最终通过 PRM 靶向质谱完成验证。
+    我目前在北京大学第一医院攻读博士学位。我使用基于质谱的蛋白质组学、空间组学
+    与机器学习，研究中药在急性肝损伤、急性肺损伤、溃疡性结肠炎与心力衰竭中的作用
+    机制，并关注如何把高通量发现转化为可验证的机制假设与血液标志物，最终通过 PRM
+    靶向质谱完成验证。
 
 email: "yjc1814360926 [at] 163.com"
 
@@ -126,8 +128,8 @@ research:
 news:
   - date: 2026-11-01
     text:
-      en: "Launched a new bilingual academic homepage and released the ICU length-of-stay prediction project."
-      zh: "上线新的中英双语学术主页，并发布 ICU 延长住院预测项目。"
+      en: "Started my PhD at Peking University First Hospital."
+      zh: "进入北京大学第一医院攻读博士学位。"
   - date: 2026-08-11
     text:
       en: "Co-first-author paper on Yindan Pinggan capsules and ferroptosis published in Science of Traditional Chinese Medicine."
