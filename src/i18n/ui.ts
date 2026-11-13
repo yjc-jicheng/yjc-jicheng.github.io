@@ -27,7 +27,7 @@ export const ui = {
     preprint: 'preprint',
     in_press: 'in press',
     figures_intro:
-      'Schematic figures illustrating proteomics, mass spectrometry, and spatial analysis workflows. Illustrations are generated and contain no patient data.',
+      'Selected analysis figures from the ICU prediction project, plus schematic illustrations. No patient-identifiable data.',
     cv_download: 'Download PDF',
     education: 'Education',
     positions: 'Positions',
@@ -65,7 +65,7 @@ export const ui = {
     copied: '已复制',
     preprint: '预印本',
     in_press: '已接受',
-    figures_intro: '蛋白质组学、质谱与空间分析流程的示意图。所有图形均由程序生成，不包含患者数据。',
+    figures_intro: 'ICU 预测项目的分析图，以及蛋白质组学流程示意图。不包含可识别患者的数据。',
     cv_download: '下载 PDF',
     education: '教育经历',
     positions: '工作与访问',

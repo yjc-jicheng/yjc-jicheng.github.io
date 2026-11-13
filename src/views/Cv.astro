@@ -15,11 +15,17 @@ const groups: [string, CvEntry[]][] = [
 ];
 ---
 <Base lang={lang} title={t.nav_cv}>
-  <h1>{t.nav_cv}</h1>
-  <p class="intro__affil">{tr(site.name, lang)} · {tr(site.affiliation, lang)} · {site.email}</p>
-  {filled(site.links?.cv_pdf) && (
-    <p class="no-print"><a class="icon-btn" href={site.links.cv_pdf}>{t.cv_download}</a></p>
-  )}
+  <div class="cv-head">
+    <div>
+      <h1>{t.nav_cv}</h1>
+      <p class="intro__affil">{tr(site.name, lang)} · {tr(site.affiliation, lang)} · {site.email}</p>
+      {filled(site.links?.cv_pdf) && (
+        <p class="no-print"><a class="icon-btn" href={site.links.cv_pdf}>{t.cv_download}</a></p>
+      )}
+    </div>
+    <img class="cv-portrait" src="/img/portrait.png" width="157" height="220"
+      alt={lang === 'zh' ? '杨济丞的证件照' : 'Portrait of Jicheng Yang'} />
+  </div>
 
   {groups.filter(([, rows]) => rows.length > 0).map(([name, rows]) => (
     <section class="cv-group">

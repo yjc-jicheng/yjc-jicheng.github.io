@@ -36,7 +36,7 @@ const rendered = await Promise.all(projects.map(async (p) => ({ p, Content: (awa
             <p class="pub__venue">{p.data.period}{p.data.role && <> · {p.data.role}</>}{p.data.stack.length > 0 && <> · {p.data.stack.join(', ')}</>}</p>
             <Content />
           </div>
-          {p.data.hero && <img src={`/img/${p.data.hero}.svg`} width="1200" height="800" alt="" role="presentation" />}
+          {p.data.hero && <img src={`/img/${p.data.hero.includes('.') ? p.data.hero : `${p.data.hero}.svg`}`} width="1200" height="800" alt="" role="presentation" />}
         </article>
       ))}
     </section>

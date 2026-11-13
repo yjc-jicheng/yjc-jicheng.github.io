@@ -4,7 +4,7 @@ import { t as tr } from '@/lib/site';
 
 const { fig, lang } = Astro.props as { fig: any; lang: Lang };
 const d = fig.data;
-const src = `/img/${d.src}.${d.kind === 'svg' ? 'svg' : 'png'}`;
+const src = d.src.includes('.') ? `/img/${d.src}` : `/img/${d.src}.${d.kind === 'svg' ? 'svg' : 'png'}`;
 const dlgId = `lb-${fig.id}`;
 ---
 <figure class="fig-card">

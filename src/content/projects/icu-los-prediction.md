@@ -7,7 +7,7 @@ period: "2026"
 role: "Independent project"
 stack: ["Python", "scikit-learn", "XGBoost", "SHAP", "Jupyter", "LaTeX"]
 status: archived
-hero: "generated/roc"
+hero: "figures/roc-pr.png"
 order: 1
 ---
 

@@ -1,8 +1,8 @@
 # ============================================================
-#  图集 —— 当前全部指向程序化生成的抽象图（public/img/generated/）
-#  换成真图时：把源图放 assets/_source/，跑 npm run images 生成衍生物，
-#  再把 src 改成 "img/<name>" 并填真实 width/height。
-#  注意：未发表数据、合作方数据、患者影像不要放上公网。
+#  图集 —— 蛋白质组学示意图 + ICU 预测项目的真实分析图
+#  真实分析图来自 MIMIC-IV Demo 的聚合结果，不含可识别患者数据。
+#  换成新的科研图时：源图放 assets/_source/，导出到 public/img/，
+#  再把 src 改成对应路径并填真实 width/height。
 # ============================================================
 
 - id: peptide-spectrum
@@ -61,30 +61,58 @@
   credit: { en: "Illustration", zh: "示意图" }
   tags: ["schematic", "spatial omics", "imaging"]
 
-- id: pathway-network
-  src: "generated/network"
-  width: 1200
-  height: 800
-  kind: svg
+- id: icu-cohort
+  src: "figures/cohort-flow.png"
+  width: 2430
+  height: 1650
+  kind: raster
   caption:
-    en: "Schematic: a protein interaction or pathway network (illustration)."
-    zh: "示意图：蛋白互作或通路网络（图示）。"
+    en: "Cohort construction for the ICU length-of-stay project (MIMIC-IV Demo; aggregated counts)."
+    zh: "ICU 延长住院项目的队列构建流程（MIMIC-IV Demo，聚合计数）。"
   alt:
-    en: "Abstract network of connected circular nodes of different sizes, with a few highlighted edges."
-    zh: "抽象网络图：大小不同的圆形节点通过连线相连，少数连线被高亮。"
-  credit: { en: "Illustration", zh: "示意图" }
-  tags: ["schematic", "network", "pathway"]
+    en: "Flow diagram from 275 hospital admissions and 140 ICU stays to 128 first ICU stays, with 48 prolonged stays."
+    zh: "流程图：从 275 次住院、140 个 ICU stay 到 128 个首次 ICU 住院，其中 48 例延长停留。"
+  credit: { en: "MIMIC-IV Demo analysis", zh: "MIMIC-IV Demo 分析" }
+  tags: ["analysis", "clinical prediction", "cohort"]
 
-- id: roc-curves
-  src: "generated/roc"
-  width: 1200
-  height: 800
-  kind: svg
+- id: icu-roc
+  src: "figures/roc-pr.png"
+  width: 3272
+  height: 1349
+  kind: raster
   caption:
-    en: "Schematic: ROC curves comparing three models (illustration, not the study data)."
-    zh: "示意图：三个模型的 ROC 曲线比较（图示，非研究真实数据）。"
+    en: "Test-set ROC and precision–recall curves for the ICU prediction models (MIMIC-IV Demo)."
+    zh: "ICU 预测模型在测试集上的 ROC 与 PR 曲线（MIMIC-IV Demo）。"
   alt:
-    en: "Three rising ROC curves above a diagonal chance line, labelled LR, RF, and XGB."
-    zh: "三条上升的 ROC 曲线位于对角机会线上方，分别标注 LR、RF 与 XGB。"
-  credit: { en: "Illustration", zh: "示意图" }
-  tags: ["schematic", "model evaluation", "clinical prediction"]
+    en: "Two panels: ROC curves for logistic regression, random forest and XGBoost, and the corresponding precision–recall curves."
+    zh: "双面板图：logistic 回归、随机森林与 XGBoost 的 ROC 曲线，以及对应的 PR 曲线。"
+  credit: { en: "MIMIC-IV Demo analysis", zh: "MIMIC-IV Demo 分析" }
+  tags: ["analysis", "model evaluation", "clinical prediction"]
+
+- id: icu-calibration
+  src: "figures/calibration.png"
+  width: 1712
+  height: 1529
+  kind: raster
+  caption:
+    en: "Calibration curves for the three ICU prediction models on the test set."
+    zh: "三个 ICU 预测模型在测试集上的校准曲线。"
+  alt:
+    en: "Calibration plot comparing observed outcome proportions with mean predicted probabilities; logistic regression is closest to the diagonal."
+    zh: "校准图：比较观察结局比例与平均预测概率；logistic 回归最接近对角线。"
+  credit: { en: "MIMIC-IV Demo analysis", zh: "MIMIC-IV Demo 分析" }
+  tags: ["analysis", "calibration", "clinical prediction"]
+
+- id: icu-shap
+  src: "figures/shap.png"
+  width: 2286
+  height: 2098
+  kind: raster
+  caption:
+    en: "SHAP summary for the random forest model: lower GCS and higher lactate increase predicted risk."
+    zh: "随机森林模型的 SHAP 汇总图：GCS 越低、乳酸越高，预测风险越高。"
+  alt:
+    en: "SHAP beeswarm plot with GCS, temperature, lactate and ventilation as the most influential features."
+    zh: "SHAP 蜂群图：GCS、体温、乳酸与机械通气是影响最大的特征。"
+  credit: { en: "MIMIC-IV Demo analysis", zh: "MIMIC-IV Demo 分析" }
+  tags: ["analysis", "SHAP", "clinical prediction"]

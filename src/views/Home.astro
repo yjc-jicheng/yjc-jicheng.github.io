@@ -46,10 +46,14 @@ const fmt = (d: string | Date) => new Date(d).toISOString().slice(0, 10);
         </ul>
       )}
     </div>
-    <figure class="intro__figure">
-      <img src="/img/generated/spectrum.svg" width="1200" height="800" alt={lang === 'zh'
-        ? '抽象质谱示意图：沿水平 m/z 轴分布着一系列高度不同的垂直峰。'
-        : 'Abstract mass spectrum with a series of vertical peaks of varying height along a horizontal m/z axis.'} />
+    <figure class="intro__figure intro__portrait">
+      <img src="/img/portrait.png" width="157" height="220" alt={lang === 'zh'
+        ? '杨济丞的证件照'
+        : 'Portrait of Jicheng Yang'} />
+      <figcaption>
+        <strong>{tr(site.name, lang)}</strong>
+        <span>{tr(site.tagline, lang)}</span>
+      </figcaption>
     </figure>
   </section>
 
