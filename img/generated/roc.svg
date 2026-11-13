@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img">
+  <style>
+    text { font-family: ui-sans-serif, system-ui, sans-serif; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #16181d; }
+      .s-ink { stroke: #e7e5e0; }  .s-ink2 { stroke: #9aa2b4; }
+      .s-acc { stroke: #8fc2f2; }  .s-warm { stroke: #e0a575; }
+      .s-rule { stroke: #3a3f4b; }
+      .f-ink { fill: #e7e5e0; }    .f-ink2 { fill: #9aa2b4; }
+      .f-acc { fill: #8fc2f2; }    .f-warm { fill: #e0a575; }
+      text { fill: #9aa2b4; }
+    }
+  </style>
+  <rect class="bg" fill="#fbfbf9" width="1200" height="800"/>
+<path class="s-ink" stroke="#2a2e3a" stroke-width="1.2" fill="none" d="M170,650 L1050,650"/><path class="s-ink" stroke="#2a2e3a" stroke-width="1.2" fill="none" d="M170,650 L170,140"/><path class="s-rule" stroke="#d9dade" stroke-width="1" fill="none" stroke-dasharray="7 7" d="M170,650 L1050,140"/><path class="s-ink2" stroke="#5d6475" stroke-width="2.2" fill="none" d="M170,650 L240.4,420.5 L328.4,354.2 L434,293 L566,252.2 L715.6,211.4 L874,175.7 L1050,140"/><path class="s-acc" stroke="#1f6bb3" stroke-width="2.2" fill="none" d="M170,650 L258,395 L346,344 L451.6,293 L610,242 L786,201.2 L918,170.6 L1050,140"/><path class="s-warm" stroke="#b96832" stroke-width="2.2" fill="none" d="M170,650 L222.8,456.2 L310.8,384.8 L416.4,333.8 L539.6,282.8 L698,231.8 L856.4,191 L1050,140"/><text x="1050" y="692" font-size="30" fill="#5d6475" text-anchor="end">1 - specificity</text><text x="138" y="395" font-size="30" fill="#5d6475" text-anchor="middle" transform="rotate(-90 138 395)">sensitivity</text><text x="1030" y="610" font-size="22" fill="#5d6475" text-anchor="end">LR</text><text x="1030" y="585" font-size="22" fill="#5d6475" text-anchor="end">RF</text><text x="1030" y="560" font-size="22" fill="#5d6475" text-anchor="end">XGB</text>
+</svg>
